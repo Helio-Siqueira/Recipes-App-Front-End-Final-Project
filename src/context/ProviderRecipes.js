@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function ProviderRecipes({ children }) {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [mealsToken, setMealsToken] = useState(1);
+  const [cocktailsToken, setCocktailsToken] = useState(1);
   const contextValue = {
-    name,
-    setName,
+    email,
+    setEmail,
+    senha,
+    setSenha,
+    mealsToken,
+    setMealsToken,
+    cocktailsToken,
+    setCocktailsToken,
   };
 
   return (
