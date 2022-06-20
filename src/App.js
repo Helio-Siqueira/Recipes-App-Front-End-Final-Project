@@ -2,19 +2,15 @@ import React from 'react';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProviderRecipes from './context/ProviderRecipes';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass {/* vamo que vamo */}
-      </object>
-    </div>
+    <Switch>
+      <ProviderRecipes />
+    </Switch>
+
   );
 }
 
