@@ -43,11 +43,12 @@ function Login() {
 
   return (
     <div className="login_container">
-      <form className="Login_form">
-        <label htmlFor="login_email">
+      <form className="login_form">
+        <label htmlFor="login_email" className="login_label">
           Email
           <input
             type="email"
+            className="login_email"
             nome="login_email"
             placeholder="adicione seu email aqui"
             id="login_email"
@@ -57,9 +58,10 @@ function Login() {
           />
         </label>
 
-        <label htmlFor="login_senha">
+        <label htmlFor="login_senha" className="login_label">
           Senha
           <input
+            className="login_senha"
             type="password"
             nome="login_senha"
             placeholder="adicione sua senha aqui"
@@ -73,6 +75,7 @@ function Login() {
         <button
           data-testid="login-submit-btn"
           type="button"
+          className="login_button"
           onClick={ submitButton }
           disabled={ lockButton }
         >
@@ -80,7 +83,6 @@ function Login() {
         </button>
       </form>
     </div>
-
   );
 }
 
