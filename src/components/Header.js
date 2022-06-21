@@ -14,6 +14,7 @@ function Header() {
     letra.toUpperCase()));
   const [titleState, setTitleState] = useState(titleFinal);
   const [showSearchBtn, setShowSearchBtn] = useState(false);
+  const [showSearchImp, setShowSearchImp] = useState(false);
   const search = ['/foods', '/drinks', '/explore/foods/nationalities'];
 
   useEffect(() => {
@@ -49,13 +50,22 @@ function Header() {
 
       <h1 data-testid="page-title">{ titleState }</h1>
       {showSearchBtn
-      && <img
-        type="button"
-        data-testid="search-top-btn"
-        className="header__button"
-        src={ imgSearch }
-        alt="Search"
-      />}
+      && (
+        <button type="button" onClick={ () => setShowSearchImp(!showSearchImp) }>
+          <img
+            type="button"
+            data-testid="search-top-btn"
+            className="header__button"
+            src={ imgSearch }
+            alt="Search"
+          />
+        </button>)}
+      {showSearchImp
+      && (
+        <div>
+          <input type="text" data-testid="search-input" />
+        </div>
+      )}
 
     </header>
   );
