@@ -5,16 +5,33 @@ import imgSearch from '../images/searchIcon.svg';
 
 function Header() {
   const history = useHistory();
-  console.log(history.location.pathname);
   const { pathname } = history.location;
   const path = pathname.substring(1);
   const title = path.charAt(0).toUpperCase() + path.slice(1);
+  const title1 = title.replace('/', ' ');
+  const editedTitle = title1.replace('/', ' ');
+  const titleFinal = editedTitle.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => (
+    letra.toUpperCase()));
+  const [titleState, setTitleState] = useState(titleFinal);
   const [showSearchBtn, setShowSearchBtn] = useState(false);
-  const search = ['/foods', '/drinks', '/explore/drinks', '/explore/foods/nationalities'];
+  const search = ['/foods', '/drinks', '/explore/foods/nationalities'];
 
   useEffect(() => {
     if (search.includes(pathname)) {
       setShowSearchBtn(true);
+    }
+    if (titleState === 'Explore Foods Ingredients'
+    || titleState === 'Explore Drinks Ingredients') {
+      setTitleState('Explore Ingredients');
+    }
+    if (titleState === 'Explore Foods Nationalities') {
+      setTitleState('Explore Nationalities');
+    }
+    if (titleState === 'Done-recipes') {
+      setTitleState('Done Recipes');
+    }
+    if (titleState === 'Favorite-recipes') {
+      setTitleState('Favorite Recipes');
     }
   }, []);
 
@@ -30,7 +47,7 @@ function Header() {
         />
       </Link>
 
-      <h1 data-testid="page-title">{ title }</h1>
+      <h1 data-testid="page-title">{ titleState }</h1>
       {showSearchBtn
       && <img
         type="button"
