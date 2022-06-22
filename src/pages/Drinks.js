@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DrinkCard from '../components/DrinkCard';
 import RecipesContext from '../context/RecipesContext';
 
 function Drinks() {
+  const history = useHistory();
   const { drinks } = useContext(RecipesContext);
   const [categoryDrink, setCategoryDrink] = useState([]);
   const [filterDrinks, setFilterDrinks] = useState([]);
@@ -26,6 +28,13 @@ function Drinks() {
 
     getCategorysDrink();
   }, []);
+
+  useEffect(() => {
+    if (drinks.length === 1) {
+      const endpoint = drinks[0].idDrink;
+      history.push(`/drinks/${endpoint}`);
+    }
+  }, [drinks]);
 
   const filterByCategory = async ({ target }) => {
     if (filtro === target.name) {
