@@ -63,7 +63,38 @@ function Header() {
       {showSearchImp
       && (
         <div>
+          <label htmlFor="Ingredients">
+            Ingredients
+            <input
+              id="Ingredients"
+              type="radio"
+              data-testid="ingredient-search-radio"
+            />
+          </label>
+          <label htmlFor="Name">
+            Name
+            <input
+              id="Name"
+              type="radio"
+              data-testid="name-search-radio"
+            />
+          </label>
+          <label htmlFor="Fist-Letter">
+            Fist Letter
+            <input
+              id="Fist-Letter"
+              type="radio"
+              data-testid="first-letter-search-radio"
+            />
+          </label>
           <input type="text" data-testid="search-input" />
+          <button
+            data-testid="exec-search-btn"
+            type="button"
+            className="search_button"
+          >
+            Search
+          </button>
         </div>
       )}
 
