@@ -12,6 +12,7 @@ function Foods() {
   const [magigNumber] = useState('5');
   const [filterFoods, setFilterFoods] = useState([]);
   const [filtro, setFiltro] = useState('');
+  console.log(foods);
 
   useEffect(() => {
     async function getCategorysFood() {
@@ -84,10 +85,18 @@ function Foods() {
       </section>
 
       {filterFoods.length > 0 ? filterFoods.map((item, index) => (
-        <FoodCard key={ item.idMeal } food={ item } idTest={ index } />
+        <FoodCard
+          key={ item.idMeal }
+          food={ item }
+          idTest={ index }
+        />
       )) : (
-        foods.map((item, index) => (
-          <FoodCard key={ item.idMeal } food={ item } idTest={ index } />
+        foods.map((item, index2) => (
+          <FoodCard
+            key={ item.idMeal }
+            food={ item }
+            idTest={ index2 }
+          />
         ))
       )}
 

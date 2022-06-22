@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FoodCard.css';
+import { Link } from 'react-router-dom';
 
 function FoodCard(props) {
   const { food, idTest } = props;
-
   return (
     <div>
-      <div className="card" data-testid={ `${idTest}-recipe-card` }>
-        <img
-          src={ food.strMealThumb }
-          alt={ food.strMeal }
-          data-testid={ `${idTest}-card-img` }
-        />
-        <h3 data-testid={ `${idTest}-card-name` }>{ food.strMeal }</h3>
-      </div>
+      <Link to={ `/foods/${food.idMeal}` }>
+        <div className="card" data-testid={ `${idTest}-recipe-card` }>
+          <img
+            src={ food.strMealThumb }
+            alt={ food.strMeal }
+            data-testid={ `${idTest}-card-img` }
+          />
+          <h3 data-testid={ `${idTest}-card-name` }>{ food.strMeal }</h3>
+        </div>
+      </Link>
     </div>
   );
 }

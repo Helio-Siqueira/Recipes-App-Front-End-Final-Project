@@ -19,6 +19,7 @@ import Nationalities from './pages/Nationalities';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import DetailsDrinks from './pages/DetailsDrinks';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/foods/:id-da-receita" component={ DetailsFoods } />
+        <Route exact path="/drinks/:id-da-receita" component={ DetailsDrinks } />
         <Route
           exact
           path="/drinks/:id-da-receita/in-progress"
