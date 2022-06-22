@@ -7,7 +7,10 @@ import RecipesContext from '../context/RecipesContext';
 function Drinks() {
   const { drinks } = useContext(RecipesContext);
   const [categoryDrink, setCategoryDrink] = useState([]);
+  const [filterDrinks, setFilterDrinks] = useState([]);
   const [magigNumber] = useState('5');
+  console.log(filterDrinks);
+  console.log(drinks);
   useEffect(() => {
     async function getCategorysDrink() {
       try {
@@ -22,6 +25,28 @@ function Drinks() {
 
     getCategorysDrink();
   }, []);
+
+  const filterByCategory = async ({ target }) => {
+    try {
+      const endopint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`;
+      console.log(endopint);
+      const response = await fetch(endopint);
+      const { drinks: array } = await response.json();
+      console.log(array);
+
+      let newListFood = array;
+      const ELEVEN = 11;
+      if (array.length > ELEVEN) {
+        const TWELVE = 12;
+        newListFood = array.slice(0, TWELVE);
+      }
+      console.log(newListFood);
+      setFilterDrinks(newListFood);
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -32,25 +57,25 @@ function Drinks() {
             data-testid={ `${category.strCategory}-category-filter` }
             type="button"
             key={ index }
+            name={ category.strCategory }
+            onClick={ filterByCategory }
           >
             { category.strCategory }
 
           </button>
         )).slice(0, Number(magigNumber)) }
       </section>
-      {
-        drinks.map((item, i) => (
-          <DrinkCard
-            key={ item.idDrink }
-            drink={ item }
-            idTest={ i }
-          />
+
+      {filterDrinks.length > 0 ? filterDrinks.map((item, index) => (
+        <DrinkCard key={ item.idDrink } drink={ item } idTest={ index } />
+      )) : (
+        drinks.map((item, index2) => (
+          <DrinkCard key={ item.idDrink } drink={ item } idTest={ index2 } />
         ))
-      }
+      )}
       <Footer />
     </div>
   );
 }
 
 export default Drinks;
-// ronan e helio

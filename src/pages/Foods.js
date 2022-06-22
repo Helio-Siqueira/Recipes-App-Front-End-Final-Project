@@ -10,6 +10,7 @@ function Foods() {
   const { foods } = useContext(RecipesContext);
   const [categoryFood, setCategoryFood] = useState([]);
   const [magigNumber] = useState('5');
+  const [filterFoods, setFilterFoods] = useState([]);
 
   useEffect(() => {
     async function getCategorysFood() {
@@ -25,6 +26,25 @@ function Foods() {
 
     getCategorysFood();
   }, []);
+
+  const filterByCategory = async ({ target }) => {
+    try {
+      const endopint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`;
+      const response = await fetch(endopint);
+      const { meals: array } = await response.json();
+
+      let newListFood = array;
+      const ELEVEN = 11;
+      if (array.length > ELEVEN) {
+        const TWELVE = 12;
+        newListFood = array.slice(0, TWELVE);
+      }
+      setFilterFoods(newListFood);
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -35,17 +55,24 @@ function Foods() {
             data-testid={ `${category.strCategory}-category-filter` }
             type="button"
             key={ index }
+            name={ category.strCategory }
+            // onClick={ ({ target }) => console.log(target.name) }
+            onClick={ filterByCategory }
           >
             { category.strCategory }
 
           </button>
         )).slice(0, Number(magigNumber)) }
       </section>
-      {
+
+      {filterFoods.length > 0 ? filterFoods.map((item, index) => (
+        <FoodCard key={ item.idMeal } food={ item } idTest={ index } />
+      )) : (
         foods.map((item, index) => (
           <FoodCard key={ item.idMeal } food={ item } idTest={ index } />
         ))
-      }
+      )}
+
       <Footer />
     </div>
   );
