@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function ExploreFoods() {
   return (
@@ -22,6 +23,7 @@ function ExploreFoods() {
           Surprise me!
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

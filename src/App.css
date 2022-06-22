@@ -1,3 +1,7 @@
+* {
+  margin: 2px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
