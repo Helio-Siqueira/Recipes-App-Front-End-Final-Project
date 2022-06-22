@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import imgProfile from '../images/profileIcon.svg';
 import imgSearch from '../images/searchIcon.svg';
+import RecipesContext from '../context/RecipesContext';
 
 function Header() {
   const history = useHistory();
@@ -16,6 +17,9 @@ function Header() {
   const [showSearchBtn, setShowSearchBtn] = useState(false);
   const [showSearchImp, setShowSearchImp] = useState(false);
   const search = ['/foods', '/drinks', '/explore/foods/nationalities'];
+  const [inputedSearchText, setInputedSearchText] = useState('');
+  const [selectedSearchCategory, setSelectedSearchCategory] = useState('Ingredient');
+  const { searchAPI } = useContext(RecipesContext);
 
   useEffect(() => {
     if (search.includes(pathname)) {
@@ -35,6 +39,20 @@ function Header() {
       setTitleState('Favorite Recipes');
     }
   }, []);
+
+  const handlerSearchChange = ({ target }) => {
+    const { value, type, id } = target;
+    if (type === 'radio') setSelectedSearchCategory(id);
+    if (type === 'text') setInputedSearchText(value);
+  };
+
+  function searchButton() {
+    if (selectedSearchCategory === 'Fist-Letter' && inputedSearchText.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+    } else {
+      searchAPI(titleState, inputedSearchText, selectedSearchCategory);
+    }
+  }
 
   return (
     <header className="header">
@@ -66,9 +84,11 @@ function Header() {
           <label htmlFor="Ingredients">
             Ingredients
             <input
-              id="Ingredients"
+              id="Ingredient"
               type="radio"
               data-testid="ingredient-search-radio"
+              checked={ selectedSearchCategory === 'Ingredient' }
+              onClick={ handlerSearchChange }
             />
           </label>
           <label htmlFor="Name">
@@ -77,6 +97,8 @@ function Header() {
               id="Name"
               type="radio"
               data-testid="name-search-radio"
+              checked={ selectedSearchCategory === 'Name' }
+              onClick={ handlerSearchChange }
             />
           </label>
           <label htmlFor="Fist-Letter">
@@ -85,13 +107,22 @@ function Header() {
               id="Fist-Letter"
               type="radio"
               data-testid="first-letter-search-radio"
+              checked={ selectedSearchCategory === 'Fist-Letter' }
+              onClick={ handlerSearchChange }
             />
           </label>
-          <input type="text" data-testid="search-input" />
+          <input
+            type="text"
+            data-testid="search-input"
+            name={ inputedSearchText }
+            // value={ inputedSearchText }
+            onChange={ handlerSearchChange }
+          />
           <button
             data-testid="exec-search-btn"
             type="button"
             className="search_button"
+            onClick={ searchButton }
           >
             Search
           </button>
