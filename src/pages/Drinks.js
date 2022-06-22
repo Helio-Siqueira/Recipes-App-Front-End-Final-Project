@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import DrinkCard from '../components/DrinkCard';
+import RecipesContext from '../context/RecipesContext';
 
 function Drinks() {
+  const { drinks } = useContext(RecipesContext);
   const [categoryDrink, setCategoryDrink] = useState([]);
   const [magigNumber] = useState('5');
   useEffect(() => {
@@ -35,6 +38,15 @@ function Drinks() {
           </button>
         )).slice(0, Number(magigNumber)) }
       </section>
+      {
+        drinks.map((item, i) => (
+          <DrinkCard
+            key={ item.idDrink }
+            drink={ item }
+            idTest={ i }
+          />
+        ))
+      }
       <Footer />
     </div>
   );
