@@ -11,6 +11,7 @@ function Foods() {
   const [categoryFood, setCategoryFood] = useState([]);
   const [magigNumber] = useState('5');
   const [filterFoods, setFilterFoods] = useState([]);
+  const [filtro, setFiltro] = useState('');
 
   useEffect(() => {
     async function getCategorysFood() {
@@ -28,20 +29,26 @@ function Foods() {
   }, []);
 
   const filterByCategory = async ({ target }) => {
-    try {
-      const endopint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`;
-      const response = await fetch(endopint);
-      const { meals: array } = await response.json();
+    if (filtro === target.name) {
+      setFiltro('');
+      setFilterFoods(foods);
+    } else {
+      setFiltro(target.name);
+      try {
+        const endopint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`;
+        const response = await fetch(endopint);
+        const { meals: array } = await response.json();
 
-      let newListFood = array;
-      const ELEVEN = 11;
-      if (array.length > ELEVEN) {
-        const TWELVE = 12;
-        newListFood = array.slice(0, TWELVE);
+        let newListFood = array;
+        const ELEVEN = 11;
+        if (array.length > ELEVEN) {
+          const TWELVE = 12;
+          newListFood = array.slice(0, TWELVE);
+        }
+        setFilterFoods(newListFood);
+      } catch (error) {
+        return error;
       }
-      setFilterFoods(newListFood);
-    } catch (error) {
-      return error;
     }
   };
 
@@ -50,13 +57,12 @@ function Foods() {
       <Header />
       <p>Foods</p>
       <section>
-        { categoryFood.map((category, index) => (
+        { categoryFood.map((category, index) => ( // renderiza os botoes de categorias
           <button
             data-testid={ `${category.strCategory}-category-filter` }
             type="button"
             key={ index }
             name={ category.strCategory }
-            // onClick={ ({ target }) => console.log(target.name) }
             onClick={ filterByCategory }
           >
             { category.strCategory }
