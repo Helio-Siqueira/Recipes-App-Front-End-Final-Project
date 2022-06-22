@@ -30,7 +30,6 @@ function Foods() {
 
   const filterByCategory = async ({ target }) => {
     if (filtro === target.name) {
-      setFiltro('');
       setFilterFoods(foods);
     } else {
       setFiltro(target.name);
@@ -52,11 +51,24 @@ function Foods() {
     }
   };
 
+  const filterAll = ({ target }) => {
+    setFilterFoods(foods);
+    setFiltro(target.name);
+  };
+
   return (
     <div>
       <Header />
       <p>Foods</p>
       <section>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          name="All"
+          onClick={ filterAll }
+        >
+          All
+        </button>
         { categoryFood.map((category, index) => ( // renderiza os botoes de categorias
           <button
             data-testid={ `${category.strCategory}-category-filter` }

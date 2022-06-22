@@ -29,7 +29,6 @@ function Drinks() {
 
   const filterByCategory = async ({ target }) => {
     if (filtro === target.name) {
-      setFiltro('');
       setFilterDrinks(drinks);
     } else {
       setFiltro(target.name);
@@ -54,11 +53,24 @@ function Drinks() {
     }
   };
 
+  const filterAll = ({ target }) => {
+    setFilterDrinks(drinks);
+    setFiltro(target.name);
+  };
+
   return (
     <div>
       <Header />
       <div>Drinks</div>
       <section>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          name="All"
+          onClick={ filterAll }
+        >
+          All
+        </button>
         { categoryDrink.map((category, index) => (
           <button
             data-testid={ `${category.strCategory}-category-filter` }
