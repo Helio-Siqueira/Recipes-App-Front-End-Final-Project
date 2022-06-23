@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
@@ -7,6 +8,7 @@ import RecipesContext from '../context/RecipesContext';
 // página principal de receitas
 
 function Foods() {
+  const history = useHistory();
   const { foods } = useContext(RecipesContext);
   const [categoryFood, setCategoryFood] = useState([]);
   const [magigNumber] = useState('5');
@@ -28,6 +30,13 @@ function Foods() {
 
     getCategorysFood();
   }, []);
+
+  useEffect(() => {
+    if (foods.length === 1) {
+      const endpoint = foods[0].idMeal;
+      history.push(`/foods/${endpoint}`);
+    }
+  }, [foods]);
 
   const filterByCategory = async ({ target }) => {
     if (filtro === target.name) {
