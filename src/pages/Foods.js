@@ -31,11 +31,15 @@ function Foods() {
     getCategorysFood();
   }, []);
 
-  useEffect(() => {
+  function foodsHandler() {
     if (foods.length === 1) {
       const endpoint = foods[0].idMeal;
       history.push(`/foods/${endpoint}`);
     }
+  }
+
+  useEffect(() => {
+    foodsHandler();
   }, [foods]);
 
   const filterByCategory = async ({ target }) => {
