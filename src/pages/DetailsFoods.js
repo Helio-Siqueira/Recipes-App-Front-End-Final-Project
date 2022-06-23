@@ -150,13 +150,16 @@ function DetailsFoods() {
 
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => console.log('iniciar receita') }
-      >
-        Iniciar receita
-      </button>
+      <div className="details__start">
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => console.log('iniciar receita') }
+          className="datails__start__button"
+        >
+          Iniciar receita
+        </button>
+      </div>
 
     </div>
   );

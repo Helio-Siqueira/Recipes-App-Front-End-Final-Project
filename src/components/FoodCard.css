@@ -15,3 +15,22 @@
   flex-wrap: nowrap;
   overflow-x: scroll;
 }
+
+.details__start {
+  display: flex;
+  justify-content: center;
+}
+
+.datails__start__button {
+  align-items: center;
+  background-color: green;
+  bottom: 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 360px;
+
+}
