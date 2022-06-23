@@ -32,3 +32,26 @@ export function setCocktailsTokenStorage(token) {
 export function getCocktailsToken() {
   return localStorage.setItem('cocktailsToken');
 }
+
+export function setDoneRecipes(foodObject) {
+  const PrevState = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (PrevState === null) {
+    return localStorage.setItem('doneRecipes', JSON.stringify(foodObject));
+  }
+  const updatedRecepies = { ...PrevState, foodObject };
+  return localStorage.setItem('doneRecipes', JSON.stringify(updatedRecepies));
+}
+
+// export function getDoneRecipes() {
+//   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+//   return storage;
+// }
+
+export function setInProgressRecipes(recipes) {
+  return localStorage.setItem('inProgressRecipes', JSON.stringify(recipes));
+}
+
+export function getInProgressRecipes() {
+  const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  return storage;
+}

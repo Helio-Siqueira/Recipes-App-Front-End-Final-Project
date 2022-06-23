@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+// import RecipesContext from '../context/RecipesContext';
 
 function DetailsFoods() {
+  // const { recipesInProgres,
+  //   setrecipesInProgres } = useContext(RecipesContext);
   const history = useHistory();
   const { pathname } = history.location;
   const idFood = pathname.replace(/\D/gim, '');
@@ -9,13 +12,9 @@ function DetailsFoods() {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
-  // const [video, setVideo] = useState('');
-
-  // if (video) {
-  //   const videoURL = video.split('=')[1];
-  //   setVideo(videoURL);
-  //   console.log(video);
-  // }
+  // const [recipeDone, setRecipeDone] = useState(true);
+  const [recipeDone] = useState(true);
+  // const [progress, setprogress] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -72,6 +71,39 @@ function DetailsFoods() {
     }
     getDrinkRec();
   }, []);
+
+  // verifica se id existe na local syorage
+  // useEffect(() => {
+  //   const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   console.log(recipeDone);
+  //   const isDone = recipesDone.some((item) => item.id === idFood);
+  //   // const isDone = false;
+  //   // pegar o estato que traz a informação da localstorage
+  //   // se o id existir na localsotare
+  //   setRecipeDone(!isDone);
+  //   // se não
+  // }, []);
+
+  // function startRecipe() {
+  //   setprogress(true);
+  //   const objetoRecipesProgres = [{
+  //     cocktail: {},
+  //     meals: {},
+  //   }];
+  //   const foodProgress = {
+  //     [idFood]: [...ingredient],
+  //   }
+
+  //   // history.push(`/foods/${idFood}/in-progress`)
+  // }
+
+  function startRecipe() {
+    history.push(`/foods/${idFood}/in-progress`);
+  }
+
+  // function continueRecipe() {
+  //   // history.push(`/foods/${idFood}/in-progress`)
+  // }
 
   return (
     <div>
@@ -150,16 +182,20 @@ function DetailsFoods() {
 
         ))}
       </div>
-      <div className="details__start">
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => console.log('iniciar receita') }
-          className="datails__start__button"
-        >
-          Iniciar receita
-        </button>
-      </div>
+      {/* {isdone? 'mostra' : ''} */}
+      {recipeDone
+      && (
+        <div className="details__start">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ startRecipe }
+            className="datails__start__button"
+          >
+            Iniciar receita
+          </button>
+        </div>
+      )}
 
     </div>
   );
