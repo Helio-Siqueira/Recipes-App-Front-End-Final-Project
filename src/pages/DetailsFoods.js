@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { setRecipesProgress } from '../services/LocalStorage';
 // import RecipesContext from '../context/RecipesContext';
 
 function DetailsFoods() {
@@ -13,8 +14,8 @@ function DetailsFoods() {
   const [measure, setMeasure] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
   // const [recipeDone, setRecipeDone] = useState(true);
-  const [recipeDone] = useState(true);
-  // const [progress, setprogress] = useState(false);
+  const [recipeUnDone, SetRecipeUnDone] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -31,6 +32,21 @@ function DetailsFoods() {
 
     detailsFoodsById();
   }, []);
+
+  useEffect(() => {
+    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {},
+      meals: {},
+    };
+    const { meals } = getInprogress;
+    console.log(Object.keys(meals));
+    const isInProgress = Object.keys(meals).some((item) => item === idFood);
+    console.log(isInProgress);
+    setInProgress(isInProgress);
+    if (inProgress === false) {
+      return SetRecipeUnDone(true);
+    } SetRecipeUnDone(false);
+  }, [inProgress]);
 
   useEffect(() => {
     const ingredientes = [];
@@ -98,6 +114,7 @@ function DetailsFoods() {
   // }
 
   function startRecipe() {
+    setRecipesProgress('foods', idFood, ingredient);
     history.push(`/foods/${idFood}/in-progress`);
   }
 
@@ -183,7 +200,20 @@ function DetailsFoods() {
         ))}
       </div>
       {/* {isdone? 'mostra' : ''} */}
-      {recipeDone
+      {inProgress
+        && (
+          <div className="details__start">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${idFood}/in-progress`) }
+              className="datails__start__button"
+            >
+              Continue Recipe
+            </button>
+          </div>)}
+
+      {recipeUnDone
       && (
         <div className="details__start">
           <button
@@ -192,8 +222,9 @@ function DetailsFoods() {
             onClick={ startRecipe }
             className="datails__start__button"
           >
-            Iniciar receita
+            Start Recipe
           </button>
+
         </div>
       )}
 
