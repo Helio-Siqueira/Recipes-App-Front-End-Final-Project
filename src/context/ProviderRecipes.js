@@ -115,7 +115,7 @@ function ProviderRecipes({ children }) {
         newList = reduceToTwelve(array, ELEVEN, newList);
         return setDrinks(newList);
       } catch (error) {
-        return error;
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
     }
   }
