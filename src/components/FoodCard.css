@@ -8,3 +8,10 @@
 .card img {
   width: 100%;
 }
+
+.datails__card__recomendation {
+  background-color: red;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}

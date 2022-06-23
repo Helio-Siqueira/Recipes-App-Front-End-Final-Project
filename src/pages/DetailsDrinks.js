@@ -115,21 +115,26 @@ function DetailsDrinks() {
       >
         {detailDrinks?.strInstructions}
       </p>
-      { foodsRecomendation.map((food, index) => (
-        <div key={ index }>
-          <Link to={ `/foods/${food.idMeal}` }>
+      <div className="datails__card__recomendation">
+        { foodsRecomendation.map((food, index) => (
+
+          <Link
+            to={ `/foods/${food.idMeal}` }
+            key={ index }
+            data-testid={ `${index}-recomendation-card` }
+          >
             <div className="card" data-testid={ `${index}-recipe-card` }>
               <img
                 src={ food.strMealThumb }
                 alt={ food.strMeal }
                 data-testid={ `${index}-card-img` }
               />
-              <h3 data-testid={ `${index}-recomendation-card` }>{ food.strMeal }</h3>
+              <h3 data-testid={ `${index}-recomendation-title` }>{ food.strMeal }</h3>
             </div>
           </Link>
-        </div>
 
-      ))}
+        ))}
+      </div>
       <button
         type="button"
         data-testid="start-recipe-btn"
