@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { setRecipesProgress } from '../services/LocalStorage';
 
 function DetailsDrinks() {
   const history = useHistory();
@@ -9,7 +10,10 @@ function DetailsDrinks() {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [foodsRecomendation, setFoodsRecomendation] = useState([]);
+  // const [inProgress, setinProgress] = useState(false);
   console.log(foodsRecomendation);
+  const [recipeUnDone, SetRecipeUnDone] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
     async function detailsDrinksById() {
@@ -67,6 +71,24 @@ function DetailsDrinks() {
     getFoodsRec();
   }, []);
 
+  useEffect(() => {
+    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {},
+      meals: {},
+    };
+    const { cocktails } = getInprogress;
+    const isInProgress = Object.keys(cocktails).some((item) => item === idDrink);
+    console.log(isInProgress);
+    setInProgress(isInProgress);
+    if (inProgress === false) {
+      return SetRecipeUnDone(true);
+    } SetRecipeUnDone(false);
+  }, [inProgress]);
+
+  function startRecipe() {
+    setRecipesProgress('drinks', idDrink, ingredient);
+    history.push(`/drinks/${idDrink}/in-progress`);
+  }
   return (
     <div>
       <div>DetailsDrinks</div>
@@ -135,16 +157,34 @@ function DetailsDrinks() {
 
         ))}
       </div>
-      <div className="details__start">
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => console.log('iniciar receita') }
-          className="datails__start__button"
-        >
-          Iniciar receita
-        </button>
-      </div>
+      {/* {isdone? 'mostra' : ''} */}
+      {inProgress
+        && (
+          <div className="details__start">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${idFood}/in-progress`) }
+              className="datails__start__button"
+            >
+              Continue Recipe
+            </button>
+          </div>)}
+
+      {recipeUnDone
+      && (
+        <div className="details__start">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ startRecipe }
+            className="datails__start__button"
+          >
+            Start Recipe
+          </button>
+
+        </div>
+      )}
     </div>
 
   );
