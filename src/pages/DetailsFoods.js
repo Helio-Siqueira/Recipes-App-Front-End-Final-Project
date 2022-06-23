@@ -75,7 +75,7 @@ function DetailsFoods() {
 
   return (
     <div>
-      <p>{detailMeals.idMeal}</p>
+      {/* <p>{detailMeals.idMeal}</p> */}
       <img
         src={ detailMeals.strMealThumb }
         alt="imagem da receita"
