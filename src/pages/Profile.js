@@ -32,7 +32,7 @@ function Profile() {
   return (
     <div className="profile__container">
       <Header />
-      <h3 data-testid="profile-email">{ email.email }</h3>
+      <h3 data-testid="profile-email">{ email?.email }</h3>
 
       <button
         data-testid="profile-done-btn"
