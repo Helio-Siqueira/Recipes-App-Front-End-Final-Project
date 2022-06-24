@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function ProgressFoods() {
   // import RecipesContext from '../context/RecipesContext';
@@ -15,42 +18,25 @@ function ProgressFoods() {
   // const [recipeDone, setRecipeDone] = useState(true);
   const [recipeDone] = useState(true);
   // const [progress, setprogress] = useState(false);
+  const [shareMessage, setshareMessage] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
-      try {
-        const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
-        const response = await fetch(endopint);
-        const { meals } = await response.json();
-        setDetailMeals(meals[0]);
-        // setVideo(meals[0].strYoutube);
-      } catch (error) {
-        return error;
-      }
+      const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+      const response = await fetch(endopint);
+      const { meals } = await response.json();
+      setDetailMeals(meals[0]);
+      const ingredientsList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strIngredient') && info[1]))
+        .map((item) => item[1]);
+      setIngredient(ingredientsList);
+      const quantitiesList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strMeasure') && info[1]))
+        .map((quantity) => quantity[1]);
+      setMeasure(quantitiesList);
     }
-
     detailsFoodsById();
-  }, []);
-
-  useEffect(() => {
-    const ingredientes = [];
-    setIngredient(ingredientes);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strIngredient') && value !== '' && value !== null) {
-        ingredientes.push(value);
-      }
-    });
-  }, [detailMeals]);
-
-  useEffect(() => {
-    const quantidade = [];
-    setMeasure(quantidade);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strMeasure') && value !== '' && value !== null) {
-        quantidade.push(value);
-      }
-    });
-  }, [detailMeals]);
+  }, [idFood]);
 
   function startRecipe() {
     history.push(`/foods/${idFood}/in-progress`);
@@ -59,6 +45,11 @@ function ProgressFoods() {
   // function continueRecipe() {
   //   // history.push(`/foods/${idFood}/in-progress`)
   // }
+
+  const shareButton = () => {
+    setshareMessage(true);
+    copy(`http://localhost:3000${pathname}`);
+  };
 
   return (
     <div>
@@ -74,11 +65,13 @@ function ProgressFoods() {
         {detailMeals.strMeal}
       </p>
       <button
-        data-testid="share-btn"
         type="button"
-        onClick={ () => console.log('compartilhar') }
+        data-testid="share-btn"
+        onClick={ shareButton }
       >
-        Compartilhar
+        {shareMessage ? (<p>Link copied!</p>) : (
+          <img src={ shareIcon } alt="Share" />
+        )}
       </button>
       <button
         type="button"
