@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
+import './Details.css';
 
 const copy = require('clipboard-copy');
 
@@ -86,6 +87,7 @@ function DetailsFoods() {
         src={ detailMeals.strMealThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
+        className="details__img"
       />
       <p
         data-testid="recipe-title"
