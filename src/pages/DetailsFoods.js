@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
-// import RecipesContext from '../context/RecipesContext';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function DetailsFoods() {
-  // const { recipesInProgres,
-  //   setrecipesInProgres } = useContext(RecipesContext);
   const history = useHistory();
   const { pathname } = history.location;
   const idFood = pathname.replace(/\D/gim, '');
@@ -16,57 +16,25 @@ function DetailsFoods() {
   // const [recipeDone, setRecipeDone] = useState(true);
   const [recipeUnDone, SetRecipeUnDone] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+  const [shareMessage, setshareMessage] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
-      try {
-        const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
-        const response = await fetch(endopint);
-        const { meals } = await response.json();
-        setDetailMeals(meals[0]);
-        // setVideo(meals[0].strYoutube);
-      } catch (error) {
-        return error;
-      }
+      const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+      const response = await fetch(endopint);
+      const { meals } = await response.json();
+      setDetailMeals(meals[0]);
+      const ingredientsList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strIngredient') && info[1]))
+        .map((item) => item[1]);
+      setIngredient(ingredientsList);
+      const quantitiesList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strMeasure') && info[1]))
+        .map((quantity) => quantity[1]);
+      setMeasure(quantitiesList);
     }
-
     detailsFoodsById();
-  }, []);
-
-  useEffect(() => {
-    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      cocktails: {},
-      meals: {},
-    };
-    const { meals } = getInprogress;
-    console.log(Object.keys(meals));
-    const isInProgress = Object.keys(meals).some((item) => item === idFood);
-    console.log(isInProgress);
-    setInProgress(isInProgress);
-    if (inProgress === false) {
-      return SetRecipeUnDone(true);
-    } SetRecipeUnDone(false);
-  }, [inProgress]);
-
-  useEffect(() => {
-    const ingredientes = [];
-    setIngredient(ingredientes);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strIngredient') && value !== '' && value !== null) {
-        ingredientes.push(value);
-      }
-    });
-  }, [detailMeals]);
-
-  useEffect(() => {
-    const quantidade = [];
-    setMeasure(quantidade);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strMeasure') && value !== '' && value !== null) {
-        quantidade.push(value);
-      }
-    });
-  }, [detailMeals]);
+  }, [idFood]);
 
   useEffect(() => {
     async function getDrinkRec() {
@@ -88,39 +56,28 @@ function DetailsFoods() {
     getDrinkRec();
   }, []);
 
-  // verifica se id existe na local syorage
-  // useEffect(() => {
-  //   const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
-  //   console.log(recipeDone);
-  //   const isDone = recipesDone.some((item) => item.id === idFood);
-  //   // const isDone = false;
-  //   // pegar o estato que traz a informação da localstorage
-  //   // se o id existir na localsotare
-  //   setRecipeDone(!isDone);
-  //   // se não
-  // }, []);
-
-  // function startRecipe() {
-  //   setprogress(true);
-  //   const objetoRecipesProgres = [{
-  //     cocktail: {},
-  //     meals: {},
-  //   }];
-  //   const foodProgress = {
-  //     [idFood]: [...ingredient],
-  //   }
-
-  //   // history.push(`/foods/${idFood}/in-progress`)
-  // }
+  useEffect(() => {
+    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {},
+      meals: {},
+    };
+    const { meals } = getInprogress;
+    const isInProgress = Object.keys(meals).some((item) => item === idFood);
+    setInProgress(isInProgress);
+    if (inProgress === false) {
+      return SetRecipeUnDone(true);
+    } SetRecipeUnDone(false);
+  }, [inProgress]);
 
   function startRecipe() {
     setRecipesProgress('foods', idFood, ingredient);
     history.push(`/foods/${idFood}/in-progress`);
   }
 
-  // function continueRecipe() {
-  //   // history.push(`/foods/${idFood}/in-progress`)
-  // }
+  function shareButton() {
+    setshareMessage(true);
+    copy(`http://localhost:3000${pathname}`);
+  }
 
   return (
     <div>
@@ -136,11 +93,13 @@ function DetailsFoods() {
         {detailMeals.strMeal}
       </p>
       <button
-        data-testid="share-btn"
         type="button"
-        onClick={ () => console.log('compartilhar') }
+        data-testid="share-btn"
+        onClick={ shareButton }
       >
-        Compartilhar
+        {shareMessage ? (<p>Link copied!</p>) : (
+          <img src={ shareIcon } alt="Share" />
+        )}
       </button>
       <button
         type="button"
