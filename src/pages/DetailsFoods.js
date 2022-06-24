@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { setRecipesProgress } from '../services/LocalStorage';
+import shareIcon from '../images/shareIcon.svg';
+import './Details.css';
+
+const copy = require('clipboard-copy');
 
 function DetailsFoods() {
   const history = useHistory();
@@ -9,49 +14,28 @@ function DetailsFoods() {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
-  // const [video, setVideo] = useState('');
-
-  // if (video) {
-  //   const videoURL = video.split('=')[1];
-  //   setVideo(videoURL);
-  //   console.log(video);
-  // }
+  // const [recipeDone, setRecipeDone] = useState(true);
+  const [recipeUnDone, SetRecipeUnDone] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [shareMessage, setshareMessage] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
-      try {
-        const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
-        const response = await fetch(endopint);
-        const { meals } = await response.json();
-        setDetailMeals(meals[0]);
-        // setVideo(meals[0].strYoutube);
-      } catch (error) {
-        return error;
-      }
+      const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+      const response = await fetch(endopint);
+      const { meals } = await response.json();
+      setDetailMeals(meals[0]);
+      const ingredientsList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strIngredient') && info[1]))
+        .map((item) => item[1]);
+      setIngredient(ingredientsList);
+      const quantitiesList = Object.entries(meals[0])
+        .filter((info) => (info[0].includes('strMeasure') && info[1]))
+        .map((quantity) => quantity[1]);
+      setMeasure(quantitiesList);
     }
-
     detailsFoodsById();
-  }, []);
-
-  useEffect(() => {
-    const ingredientes = [];
-    setIngredient(ingredientes);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strIngredient') && value !== '' && value !== null) {
-        ingredientes.push(value);
-      }
-    });
-  }, [detailMeals]);
-
-  useEffect(() => {
-    const quantidade = [];
-    setMeasure(quantidade);
-    Object.entries(detailMeals).forEach(([key, value]) => {
-      if (key.includes('strMeasure') && value !== '' && value !== null) {
-        quantidade.push(value);
-      }
-    });
-  }, [detailMeals]);
+  }, [idFood]);
 
   useEffect(() => {
     async function getDrinkRec() {
@@ -73,6 +57,29 @@ function DetailsFoods() {
     getDrinkRec();
   }, []);
 
+  useEffect(() => {
+    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {},
+      meals: {},
+    };
+    const { meals } = getInprogress;
+    const isInProgress = Object.keys(meals).some((item) => item === idFood);
+    setInProgress(isInProgress);
+    if (inProgress === false) {
+      return SetRecipeUnDone(true);
+    } SetRecipeUnDone(false);
+  }, [inProgress]);
+
+  function startRecipe() {
+    setRecipesProgress('foods', idFood, ingredient);
+    history.push(`/foods/${idFood}/in-progress`);
+  }
+
+  function shareButton() {
+    setshareMessage(true);
+    copy(`http://localhost:3000${pathname}`);
+  }
+
   return (
     <div>
       {/* <p>{detailMeals.idMeal}</p> */}
@@ -80,6 +87,7 @@ function DetailsFoods() {
         src={ detailMeals.strMealThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
+        className="details__img"
       />
       <p
         data-testid="recipe-title"
@@ -87,11 +95,13 @@ function DetailsFoods() {
         {detailMeals.strMeal}
       </p>
       <button
-        data-testid="share-btn"
         type="button"
-        onClick={ () => console.log('compartilhar') }
+        data-testid="share-btn"
+        onClick={ shareButton }
       >
-        Compartilhar
+        {shareMessage ? (<p>Link copied!</p>) : (
+          <img src={ shareIcon } alt="Share" />
+        )}
       </button>
       <button
         type="button"
@@ -150,16 +160,34 @@ function DetailsFoods() {
 
         ))}
       </div>
-      <div className="details__start">
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => console.log('iniciar receita') }
-          className="datails__start__button"
-        >
-          Iniciar receita
-        </button>
-      </div>
+      {/* {isdone? 'mostra' : ''} */}
+      {inProgress
+        && (
+          <div className="details__start">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${idFood}/in-progress`) }
+              className="datails__start__button"
+            >
+              Continue Recipe
+            </button>
+          </div>)}
+
+      {recipeUnDone
+      && (
+        <div className="details__start">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ startRecipe }
+            className="datails__start__button"
+          >
+            Start Recipe
+          </button>
+
+        </div>
+      )}
 
     </div>
   );

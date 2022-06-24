@@ -32,3 +32,47 @@ export function setCocktailsTokenStorage(token) {
 export function getCocktailsToken() {
   return localStorage.setItem('cocktailsToken');
 }
+
+export function setDoneRecipes(foodObject) {
+  const PrevState = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (PrevState === null) {
+    return localStorage.setItem('doneRecipes', JSON.stringify(foodObject));
+  }
+  const updatedRecepies = { ...PrevState, foodObject };
+  return localStorage.setItem('doneRecipes', JSON.stringify(updatedRecepies));
+}
+
+// export function getDoneRecipes() {
+//   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+//   return storage;
+// }
+
+export function setRecipesProgress(category, foodID, ingredients) {
+  const newEntry = { [foodID]: [...ingredients] };
+  console.log(newEntry);
+  const inProgressRecipes = {
+    cocktails: {},
+    meals: {},
+  };
+  const PrevState = JSON.parse(localStorage.getItem('inProgressRecipes'))
+  || inProgressRecipes;
+  console.log(PrevState);
+
+  const { cocktails, meals } = PrevState;
+
+  if (category === 'foods') {
+    const prevMeals = { ...meals, ...newEntry };
+    PrevState.meals = prevMeals;
+    console.log(PrevState);
+    return localStorage.setItem('inProgressRecipes', JSON.stringify(PrevState));
+  }
+  const prevDrinks = { ...cocktails, ...newEntry };
+  PrevState.cocktails = prevDrinks;
+  console.log(PrevState);
+  return localStorage.setItem('inProgressRecipes', JSON.stringify(PrevState));
+}
+
+export function getInProgressRecipes() {
+  const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  return storage;
+}

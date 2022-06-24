@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { setRecipesProgress } from '../services/LocalStorage';
+import shareIcon from '../images/shareIcon.svg';
+import './Details.css';
+
+const copy = require('clipboard-copy');
 
 function DetailsDrinks() {
   const history = useHistory();
@@ -9,43 +14,28 @@ function DetailsDrinks() {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [foodsRecomendation, setFoodsRecomendation] = useState([]);
-  console.log(foodsRecomendation);
+
+  const [recipeUnDone, SetRecipeUnDone] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [shareMessage, setshareMessage] = useState(false);
 
   useEffect(() => {
     async function detailsDrinksById() {
-      try {
-        const endopint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
-        const response = await fetch(endopint);
-        const { drinks } = await response.json();
-        console.log(drinks);
-        setDetailDrinks(drinks[0]);
-        // setVideo(meals[0].strYoutube);
-      } catch (error) {
-        return error;
-      }
+      const endopint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
+      const response = await fetch(endopint);
+      const { drinks } = await response.json();
+      setDetailDrinks(drinks[0]);
+      const ingredientsList = Object.entries(drinks[0])
+        .filter((info) => (info[0].includes('strIngredient') && info[1]))
+        .map((item) => item[1]);
+      setIngredient(ingredientsList);
+      const quantitiesList = Object.entries(drinks[0])
+        .filter((info) => (info[0].includes('strMeasure') && info[1]))
+        .map((quantity) => quantity[1]);
+      setMeasure(quantitiesList);
     }
     detailsDrinksById();
-  }, []);
-
-  useEffect(() => {
-    const ingredientes = [];
-    setIngredient(ingredientes);
-    Object.entries(detailDrinks).forEach(([key, value]) => {
-      if (key.includes('strIngredient') && value !== '' && value !== null) {
-        ingredientes.push(value);
-      }
-    });
-  }, [detailDrinks]);
-
-  useEffect(() => {
-    const quantidade = [];
-    setMeasure(quantidade);
-    Object.entries(detailDrinks).forEach(([key, value]) => {
-      if (key.includes('strMeasure') && value !== '' && value !== null) {
-        quantidade.push(value);
-      }
-    });
-  }, [detailDrinks]);
+  }, [idDrink]);
 
   useEffect(() => {
     async function getFoodsRec() {
@@ -67,6 +57,30 @@ function DetailsDrinks() {
     getFoodsRec();
   }, []);
 
+  useEffect(() => {
+    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {},
+      meals: {},
+    };
+    const { cocktails } = getInprogress;
+    const isInProgress = Object.keys(cocktails).some((item) => item === idDrink);
+    console.log(isInProgress);
+    setInProgress(isInProgress);
+    if (inProgress === false) {
+      return SetRecipeUnDone(true);
+    } SetRecipeUnDone(false);
+  }, [inProgress]);
+
+  function startRecipe() {
+    setRecipesProgress('drinks', idDrink, ingredient);
+    history.push(`/drinks/${idDrink}/in-progress`);
+  }
+
+  const shareButton = () => {
+    setshareMessage(true);
+    copy(`http://localhost:3000${pathname}`);
+  };
+
   return (
     <div>
       <div>DetailsDrinks</div>
@@ -74,6 +88,7 @@ function DetailsDrinks() {
         src={ detailDrinks?.strDrinkThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
+        className="details__img"
       />
       <p
         data-testid="recipe-title"
@@ -81,11 +96,13 @@ function DetailsDrinks() {
         {detailDrinks?.strDrink}
       </p>
       <button
-        data-testid="share-btn"
         type="button"
-        onClick={ () => console.log('compartilhar') }
+        data-testid="share-btn"
+        onClick={ shareButton }
       >
-        Compartilhar
+        {shareMessage ? (<p>Link copied!</p>) : (
+          <img src={ shareIcon } alt="Share" />
+        )}
       </button>
       <button
         type="button"
@@ -135,16 +152,34 @@ function DetailsDrinks() {
 
         ))}
       </div>
-      <div className="details__start">
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => console.log('iniciar receita') }
-          className="datails__start__button"
-        >
-          Iniciar receita
-        </button>
-      </div>
+      {/* {isdone? 'mostra' : ''} */}
+      {inProgress
+        && (
+          <div className="details__start">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${idFood}/in-progress`) }
+              className="datails__start__button"
+            >
+              Continue Recipe
+            </button>
+          </div>)}
+
+      {recipeUnDone
+      && (
+        <div className="details__start">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ startRecipe }
+            className="datails__start__button"
+          >
+            Start Recipe
+          </button>
+
+        </div>
+      )}
     </div>
 
   );

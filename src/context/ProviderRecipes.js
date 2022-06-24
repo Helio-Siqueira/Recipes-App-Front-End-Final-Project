@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
+import { getInProgressRecipes } from '../services/LocalStorage';
 
 function ProviderRecipes({ children }) {
   const [email, setEmail] = useState('');
@@ -9,6 +10,13 @@ function ProviderRecipes({ children }) {
   const [cocktailsToken, setCocktailsToken] = useState(1);
   const [drinks, setDrinks] = useState([]);
   const [foods, setFoods] = useState([]);
+  const objetoRecipesProgres = [{
+    cocktail: {},
+    meals: {},
+  }];
+  const recipesProgres = getInProgressRecipes();
+  const [recipesInProgres, setrecipesInProgres] = useState(recipesProgres
+    || [objetoRecipesProgres]);
 
   useEffect(() => {
     async function getDrinks() {
@@ -132,6 +140,8 @@ function ProviderRecipes({ children }) {
     foods,
     drinks,
     searchAPI,
+    recipesInProgres,
+    setrecipesInProgres,
   };
 
   return (
