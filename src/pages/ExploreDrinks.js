@@ -6,7 +6,21 @@ function ExploreDrinks() {
   return (
     <div>
       <Header />
-      <div>ExploreDrinks</div>
+      <div>
+        <button
+          data-testid="explore-by-ingredient"
+          type="button"
+        >
+          By Ingredient
+        </button>
+
+        <button
+          type="button"
+          data-testid="explore-surprise"
+        >
+          Surprise me!
+        </button>
+      </div>
       <Footer />
     </div>
   );
