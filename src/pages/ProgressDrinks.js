@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import { setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -35,7 +36,7 @@ function ProgressDrinks() {
   }, [idDrink]);
 
   function finishRecipe() {
-    // history.push(`/foods/${idFood}/in-progress`);
+    setDoneRecipe(detailDrinks);
     console.log('finalizar');
   }
 
