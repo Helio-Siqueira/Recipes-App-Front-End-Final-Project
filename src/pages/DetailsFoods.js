@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
 import './Details.css';
 
 const copy = require('clipboard-copy');
@@ -18,6 +19,7 @@ function DetailsFoods() {
   const [recipeUnDone, SetRecipeUnDone] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [shareMessage, setshareMessage] = useState(false);
+  const [isFavorite, setIsfavorite] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -25,6 +27,7 @@ function DetailsFoods() {
       const response = await fetch(endopint);
       const { meals } = await response.json();
       setDetailMeals(meals[0]);
+      console.log(meals[0]);
       const ingredientsList = Object.entries(meals[0])
         .filter((info) => (info[0].includes('strIngredient') && info[1]))
         .map((item) => item[1]);
@@ -103,13 +106,11 @@ function DetailsFoods() {
           <img src={ shareIcon } alt="Share" />
         )}
       </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => console.log('Favoritar') }
-      >
-        Favoritar
-      </button>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        setIsfavorite={ setIsfavorite }
+        recipe={ detailMeals }
+      />
       <p
         data-testid="recipe-category"
       >
