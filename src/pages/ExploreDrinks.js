@@ -1,9 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExploreDrinks() {
+  const [btnClick, setBtnClick] = useState();
+
+  const history = useHistory();
+
+  const surpriseMeBtn = ({ target }) => {
+    async function surpriseMe() {
+      try {
+        const url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+        const response = await fetch(url);
+        const receitaAleatoria = await response.json();
+        const idRandom = receitaAleatoria.drinks[0].idDrink;
+        console.log(idRandom);
+
+        setBtnClick(target.value);
+        history.push(`/drinks/${idRandom}`);
+      } catch (error) {
+        return error;
+      }
+    }
+
+    surpriseMe();
+  };
+
   return (
     <div>
       <Header />
@@ -18,8 +41,10 @@ function ExploreDrinks() {
         </Link>
 
         <button
+          name={ btnClick }
           type="button"
           data-testid="explore-surprise"
+          onClick={ surpriseMeBtn }
         >
           Surprise me!
         </button>
