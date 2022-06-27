@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { setFavoriteRecipes, removeFavoriteRecipe } from '../services/LocalStorage';
+
 function FavoriteButton(props) {
   const { isFavorite, setIsfavorite, recipe } = props;
   const [id, setId] = useState('');
