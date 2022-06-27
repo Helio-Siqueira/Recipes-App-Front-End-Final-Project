@@ -79,19 +79,24 @@ export function getInProgressRecipes() {
 
 function NewEntryCreator(recipe) {
   const { idDrink, idMeal, strArea, strCategory,
-    strAlcoholic, strMeal, strDrink, strImageSource } = recipe;
+    strAlcoholic, strMeal, strDrink, strDrinkThumb, strMealThumb } = recipe;
   let recipeId = '';
   let foodOrDrink = '';
   let foodNationality = '';
   let foodCategory = '';
   let isAlcholic = '';
   let recipeName = '';
+  let img = '';
   if (idDrink !== undefined) {
     recipeId = idDrink;
-    foodOrDrink = 'Drink';
+    recipeName = strDrink;
+    foodOrDrink = 'drink';
+    img = strDrinkThumb;
   } else {
     recipeId = idMeal;
-    foodOrDrink = 'Food';
+    recipeName = strMeal;
+    foodOrDrink = 'food';
+    img = strMealThumb;
   }
   if (strArea !== undefined) {
     foodNationality = strArea;
@@ -105,11 +110,6 @@ function NewEntryCreator(recipe) {
   if (strAlcoholic !== undefined) {
     isAlcholic = strAlcoholic;
   }
-  if (strDrink !== undefined) {
-    recipeName = strDrink;
-  } else {
-    recipeName = strMeal;
-  }
   const newEntry = [{
     id: recipeId,
     type: foodOrDrink,
@@ -117,7 +117,7 @@ function NewEntryCreator(recipe) {
     category: foodCategory,
     alcoholicOrNot: isAlcholic,
     name: recipeName,
-    image: strImageSource,
+    image: img,
   }];
   return newEntry;
 }

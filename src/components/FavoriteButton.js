@@ -9,6 +9,7 @@ function FavoriteButton(props) {
   const [id, setId] = useState('');
   const { idDrink, idMeal } = recipe;
   const checkFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(checkFavorite);
   useEffect(() => {
     setId(
       () => {
