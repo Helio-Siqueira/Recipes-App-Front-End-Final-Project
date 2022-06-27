@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
 
 const copy = require('clipboard-copy');
 
@@ -13,6 +14,7 @@ function ProgressDrinks() {
   const [measure, setMeasure] = useState([]);
   const [recipeDone] = useState(true);
   const [shareMessage, setshareMessage] = useState(false);
+  const [isFavorite, setIsfavorite] = useState(false);
 
   useEffect(() => {
     async function detailsDrinksById() {
@@ -64,13 +66,11 @@ function ProgressDrinks() {
           <img src={ shareIcon } alt="Share" />
         )}
       </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => console.log('Favoritar') }
-      >
-        Favoritar
-      </button>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        setIsfavorite={ setIsfavorite }
+        recipe={ detailDrinks }
+      />
       <p
         data-testid="alcoholic"
       >

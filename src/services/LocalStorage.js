@@ -76,3 +76,72 @@ export function getInProgressRecipes() {
   const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   return storage;
 }
+
+function NewEntryCreator(recipe) {
+  const { idDrink, idMeal, strArea, strCategory,
+    strAlcoholic, strMeal, strDrink, strImageSource } = recipe;
+  let recipeId = '';
+  let foodOrDrink = '';
+  let foodNationality = '';
+  let foodCategory = '';
+  let isAlcholic = '';
+  let recipeName = '';
+  if (idDrink !== undefined) {
+    recipeId = idDrink;
+    foodOrDrink = 'Drink';
+  } else {
+    recipeId = idMeal;
+    foodOrDrink = 'Food';
+  }
+  if (strArea !== undefined) {
+    foodNationality = strArea;
+  }
+  if (strCategory !== undefined) {
+    foodCategory = strCategory;
+  }
+  if (strCategory !== undefined) {
+    foodCategory = strCategory;
+  }
+  if (strAlcoholic !== undefined) {
+    isAlcholic = strAlcoholic;
+  }
+  if (strDrink !== undefined) {
+    recipeName = strDrink;
+  } else {
+    recipeName = strMeal;
+  }
+  const newEntry = [{
+    id: recipeId,
+    type: foodOrDrink,
+    nationality: foodNationality,
+    category: foodCategory,
+    alcoholicOrNot: isAlcholic,
+    name: recipeName,
+    image: strImageSource,
+  }];
+  return newEntry;
+}
+
+export function setFavoriteRecipes(recipe) {
+  const newEntry = NewEntryCreator(recipe);
+  const PrevState = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (PrevState === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newEntry));
+  } else {
+    const update = [...PrevState, ...newEntry];
+    console.log(newEntry);
+    console.log(update);
+    localStorage
+      .setItem('favoriteRecipes', JSON.stringify(update));
+  }
+}
+
+export function removeFavoriteRecipe(id) {
+  const PrevState = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (PrevState !== null) {
+    const update = PrevState.filter((recipe) => recipe.id !== id);
+    console.log(update);
+    localStorage
+      .setItem('favoriteRecipes', JSON.stringify(update));
+  }
+}
