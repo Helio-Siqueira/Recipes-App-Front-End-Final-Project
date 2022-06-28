@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { setFavoriteRecipes, removeFavoriteRecipe } from '../services/LocalStorage';
-
+// teste
 const copy = require('clipboard-copy');
 
 function FavoriteCard(props) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
+// teste
 
 function FavoriteRecipes() {
   const [display, setDsplay] = useState([]);
