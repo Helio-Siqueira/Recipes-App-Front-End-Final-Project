@@ -90,7 +90,8 @@ function ProgressFoods() {
     copy(`http://localhost:3000${pathname}`);
   };
 
-  const checkIngredients = (indexCheck) => {
+  const checkIngredients = (indexCheck, target) => {
+    console.log(target);
     const newListIng = ingredient.map((item, index) => {
       if (index === indexCheck) {
         return { nome: item.nome, feito: !item.feito };
@@ -147,12 +148,14 @@ function ProgressFoods() {
           {`- ${nome} - ${measure[index]}`}
           <input
             type="checkbox"
-            id={ `${index}-ingredient-step` }
-            checked={ Boolean(feito) }
-            defaultChecked={ Boolean(feito) }
-            onChange={ () => checkIngredients(index) }
+            id={ `${index}` }
+            // defaultChecked={ Boolean(feito) }
+            // checked={ feito }
+            defaultchecked={ Boolean(feito) }
+            onClick={ () => checkIngredients(index) }
           />
         </label>
+
       ))}
       <p
         data-testid="instructions"
