@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
+import { setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -19,6 +21,7 @@ function ProgressFoods() {
   const [recipeDone] = useState(true);
   // const [progress, setprogress] = useState(false);
   const [shareMessage, setshareMessage] = useState(false);
+  const [isFavorite, setIsfavorite] = useState(false);
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -38,13 +41,18 @@ function ProgressFoods() {
     detailsFoodsById();
   }, [idFood]);
 
-  function startRecipe() {
-    history.push(`/foods/${idFood}/in-progress`);
-  }
+  // function startRecipe() {
+  //   history.push(`/foods/${idFood}/in-progress`);
+  // }
 
   // function continueRecipe() {
   //   // history.push(`/foods/${idFood}/in-progress`)
   // }
+
+  function finishRecipe() {
+    setDoneRecipe(detailMeals);
+    console.log('finalizar');
+  }
 
   const shareButton = () => {
     setshareMessage(true);
@@ -73,13 +81,11 @@ function ProgressFoods() {
           <img src={ shareIcon } alt="Share" />
         )}
       </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => console.log('Favoritar') }
-      >
-        Favoritar
-      </button>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        setIsfavorite={ setIsfavorite }
+        recipe={ detailMeals }
+      />
       <p
         data-testid="recipe-category"
       >
@@ -108,7 +114,7 @@ function ProgressFoods() {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ startRecipe }
+            onClick={ finishRecipe }
             className="datails__start__button"
           >
             Finalizar Receita

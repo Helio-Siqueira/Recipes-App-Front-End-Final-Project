@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
 import './Details.css';
 
 const copy = require('clipboard-copy');
+
+const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+  cocktails: {},
+  meals: {},
+};
+
+const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
 function DetailsFoods() {
   const history = useHistory();
@@ -14,10 +22,11 @@ function DetailsFoods() {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
-  // const [recipeDone, setRecipeDone] = useState(true);
-  const [recipeUnDone, SetRecipeUnDone] = useState(false);
+  const [recipeUnDone, SetRecipeUnDone] = useState(true);
   const [inProgress, setInProgress] = useState(false);
   const [shareMessage, setshareMessage] = useState(false);
+  const [isFavorite, setIsfavorite] = useState(false);
+  const [showBtn, setShowBtn] = useState(true);
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -25,6 +34,7 @@ function DetailsFoods() {
       const response = await fetch(endopint);
       const { meals } = await response.json();
       setDetailMeals(meals[0]);
+      console.log(meals[0]);
       const ingredientsList = Object.entries(meals[0])
         .filter((info) => (info[0].includes('strIngredient') && info[1]))
         .map((item) => item[1]);
@@ -58,16 +68,15 @@ function DetailsFoods() {
   }, []);
 
   useEffect(() => {
-    const getInprogress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      cocktails: {},
-      meals: {},
-    };
     const { meals } = getInprogress;
-    const isInProgress = Object.keys(meals).some((item) => item === idFood);
-    setInProgress(isInProgress);
-    if (inProgress === false) {
-      return SetRecipeUnDone(true);
-    } SetRecipeUnDone(false);
+    if (meals !== undefined) {
+      const isInProgress = Object.keys(meals).some((item) => item === idFood);
+      setInProgress(isInProgress);
+    } if (getDoneRecipes !== null) {
+      const isDone = Object.values(getDoneRecipes).some((item) => item.id === idFood);
+      SetRecipeUnDone(!isDone);
+      setShowBtn(!isDone);
+    }
   }, [inProgress]);
 
   function startRecipe() {
@@ -103,13 +112,11 @@ function DetailsFoods() {
           <img src={ shareIcon } alt="Share" />
         )}
       </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => console.log('Favoritar') }
-      >
-        Favoritar
-      </button>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        setIsfavorite={ setIsfavorite }
+        recipe={ detailMeals }
+      />
       <p
         data-testid="recipe-category"
       >
@@ -161,7 +168,7 @@ function DetailsFoods() {
         ))}
       </div>
       {/* {isdone? 'mostra' : ''} */}
-      {inProgress
+      {(inProgress === true && recipeUnDone === true && showBtn === true)
         && (
           <div className="details__start">
             <button
@@ -174,7 +181,7 @@ function DetailsFoods() {
             </button>
           </div>)}
 
-      {recipeUnDone
+      {(inProgress === false && recipeUnDone === true && showBtn === true)
       && (
         <div className="details__start">
           <button
