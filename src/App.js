@@ -20,6 +20,7 @@ import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import DetailsDrinks from './pages/DetailsDrinks';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/explore/foods/ingredients" component={ IngredientsFoods } />
         <Route exact path="/explore/drinks/ingredients" component={ IngredientsDrinks } />
         <Route exact path="/explore/foods/nationalities" component={ Nationalities } />
+        <Route exact path="/explore/drinks/nationalities" component={ NotFound } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ RecipesDone } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
