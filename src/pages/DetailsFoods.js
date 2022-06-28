@@ -37,7 +37,7 @@ function DetailsFoods() {
       console.log(meals[0]);
       const ingredientsList = Object.entries(meals[0])
         .filter((info) => (info[0].includes('strIngredient') && info[1]))
-        .map((item) => item[1]);
+        .map((item) => ({ nome: item[1], feito: false }));
       setIngredient(ingredientsList);
       const quantitiesList = Object.entries(meals[0])
         .filter((info) => (info[0].includes('strMeasure') && info[1]))
@@ -123,9 +123,9 @@ function DetailsFoods() {
         {detailMeals.strCategory}
       </p>
       <h1>Ingredientes</h1>
-      {ingredient.map((item, index) => (
+      {ingredient.map(({ nome }, index) => (
         <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-          {`- ${item} - ${measure[index]}`}
+          {`- ${nome} - ${measure[index]}`}
         </p>
       ))}
       <p
