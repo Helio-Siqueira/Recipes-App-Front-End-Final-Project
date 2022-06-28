@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import { getInProgressRecipes, setRecipesProgress } from '../services/LocalStorage';
 import { setDoneRecipe } from '../services/LocalStorage';
+
 
 const copy = require('clipboard-copy');
 
@@ -18,31 +20,57 @@ function ProgressDrinks() {
   const [isFavorite, setIsfavorite] = useState(false);
 
   useEffect(() => {
-    async function detailsDrinksById() {
-      const endopint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
-      const response = await fetch(endopint);
-      const { drinks } = await response.json();
-      setDetailDrinks(drinks[0]);
-      const ingredientsList = Object.entries(drinks[0])
-        .filter((info) => (info[0].includes('strIngredient') && info[1]))
-        .map((item) => item[1]);
-      setIngredient(ingredientsList);
-      const quantitiesList = Object.entries(drinks[0])
-        .filter((info) => (info[0].includes('strMeasure') && info[1]))
-        .map((quantity) => quantity[1]);
-      setMeasure(quantitiesList);
+    try {
+      const detailsDrinksById = async () => {
+        const endopint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
+        const response = await fetch(endopint);
+        const { drinks } = await response.json();
+        setDetailDrinks(drinks[0]);
+        const ingredientsList = Object.entries(drinks[0])
+          .filter((info) => (info[0].includes('strIngredient') && info[1]))
+          .map((item) => ({ nome: item[1], feito: false }));
+        setIngredient(ingredientsList);
+        const quantitiesList = Object.entries(drinks[0])
+          .filter((info) => (info[0].includes('strMeasure') && info[1]))
+          .map((quantity) => quantity[1]);
+        setMeasure(quantitiesList);
+        const listaProgresso = getInProgressRecipes();
+        if (listaProgresso === null) {
+          setIngredient(ingredientsList);
+          setRecipesProgress('cocktails', idDrink, ingredientsList);
+        } else {
+          setIngredient(listaProgresso.cocktails[idDrink]);
+        }
+      };
+      detailsDrinksById();
+    } catch (error) {
+      console.log(error);
     }
-    detailsDrinksById();
   }, [idDrink]);
 
   function finishRecipe() {
     setDoneRecipe(detailDrinks);
     console.log('finalizar');
+    history.push(`/drinks/${idDrink}/in-progress`); 
+    
   }
 
   const shareButton = () => {
     setshareMessage(true);
     copy(`http://localhost:3000${pathname}`);
+  };
+
+  const checkIngredients = (indexCheck, target) => {
+    console.log(target);
+    const newListIng = ingredient.map((item, index) => {
+      if (index === indexCheck) {
+        return { nome: item.nome, feito: !item.feito };
+      }
+      return item;
+    });
+    setIngredient(newListIng);
+    // setRecipesProgress('foods', idFood, newListIng);
+    setRecipesProgress('drinks', idDrink, newListIng);
   };
 
   return (
@@ -83,15 +111,23 @@ function ProgressDrinks() {
         {detailDrinks?.strAlcoholic}
       </p>
       <h1>Ingredientes</h1>
-      {ingredient.map((item, index) => (
+      {ingredient.map(({ nome, feito }, index) => (
         <label
           data-testid={ `${index}-ingredient-step` }
           key={ index }
-          htmlFor="ingredientes"
+          htmlFor={ `${index}-ingredient-step` }
         >
-          {`- ${item} - ${measure[index]}`}
-          <input type="checkbox" id="ingredientes" />
+          {`- ${nome} - ${measure[index]}`}
+          <input
+            type="checkbox"
+            id={ `${index}` }
+            // defaultChecked={ Boolean(feito) }
+            // checked={ feito }
+            defaultchecked={ feito }
+            onClick={ () => checkIngredients(index) }
+          />
         </label>
+
       ))}
       <p
         data-testid="instructions"

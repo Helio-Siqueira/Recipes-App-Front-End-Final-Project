@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import { getInProgressRecipes } from '../services/LocalStorage';
+import { getInProgressRecipes, setRecipesProgress } from '../services/LocalStorage';
 
 function ProviderRecipes({ children }) {
   const [email, setEmail] = useState('');
@@ -17,6 +17,8 @@ function ProviderRecipes({ children }) {
   const recipesProgres = getInProgressRecipes();
   const [recipesInProgres, setrecipesInProgres] = useState(recipesProgres
     || [objetoRecipesProgres]);
+  const [detailMeals, setDetailMeals] = useState([]);
+  const [ingredient, setIngredient] = useState([]);
 
   useEffect(() => {
     async function getDrinks() {
@@ -128,6 +130,23 @@ function ProviderRecipes({ children }) {
     }
   }
 
+  async function recipesInProgresProvider(idFood) {
+    // vamos fazer o tech
+    // vamos setar localStorage aqui tambem
+
+    const endopint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+    const response = await fetch(endopint);
+    const { meals } = await response.json();
+    setDetailMeals(meals[0]);
+    console.log(meals[0]);
+    const ingredientsList = Object.entries(meals[0])
+      .filter((info) => (info[0].includes('strIngredient') && info[1]))
+      .map((item) => ({ nome: item[1], feito: false }));
+    setIngredient(ingredientsList);
+    setRecipesProgress('foods', idFood, ingredientsList);
+    return ingredientsList;
+  }
+
   const contextValue = {
     email,
     setEmail,
@@ -142,6 +161,10 @@ function ProviderRecipes({ children }) {
     searchAPI,
     recipesInProgres,
     setrecipesInProgres,
+    recipesInProgresProvider,
+    detailMeals,
+    ingredient,
+
   };
 
   return (
