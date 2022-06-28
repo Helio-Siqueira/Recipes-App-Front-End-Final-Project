@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import RecipesContext from '../context/RecipesContext';
 
 function IngredientsFoods() {
   const [ingredients, setIngredients] = useState([]);
+  const { searchAPI } = useContext(RecipesContext);
+
   console.log(ingredients);
-  console.log('xablau');
 
   useEffect(() => {
     async function getIngredients() {
@@ -17,7 +20,7 @@ function IngredientsFoods() {
         // console.log(meals);
         const TWELVE = 12;
         const newListIngredients = meals.slice(0, TWELVE);
-        console.log(newListIngredients);
+        // console.log(newListIngredients);
         setIngredients(newListIngredients);
       } catch (error) {
         console.log(error);
@@ -26,12 +29,24 @@ function IngredientsFoods() {
     getIngredients();
   }, []);
 
+  const history = useHistory();
+
+  const searchByIngredient = (nameIngredient) => {
+    searchAPI('Foods', nameIngredient, 'Ingredient');
+    history.push('/foods');
+  };
+
   return (
     <div>
       <Header />
 
       {ingredients.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <button
+          key={ index }
+          data-testid={ `${index}-ingredient-card` }
+          type="button"
+          onClick={ () => searchByIngredient(item.strIngredient) }
+        >
           <p data-testid={ `${index}-card-name` }>
             {`${item.strIngredient}`}
           </p>
@@ -40,7 +55,7 @@ function IngredientsFoods() {
             src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
             alt="imagem dos ingredientes"
           />
-        </div>
+        </button>
       ))}
 
       <Footer />

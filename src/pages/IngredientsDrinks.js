@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import RecipesContext from '../context/RecipesContext';
 
 function IngredientsDrinks() {
   const [ingredients, setIngredients] = useState([]);
+  const { searchAPI } = useContext(RecipesContext);
+
   console.log(ingredients);
 
   useEffect(() => {
@@ -24,12 +28,24 @@ function IngredientsDrinks() {
     getIngredients();
   }, []);
 
+  const history = useHistory();
+
+  const searchByIngredient = (nameIngredient) => {
+    searchAPI('Drinks', nameIngredient, 'Ingredient');
+    history.push('/drinks');
+  };
+
   return (
     <div>
       <Header />
 
       {ingredients.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <button
+          key={ index }
+          data-testid={ `${index}-ingredient-card` }
+          type="button"
+          onClick={ () => searchByIngredient(item.strIngredient1) }
+        >
           <p data-testid={ `${index}-card-name` }>
             {`${item.strIngredient1}`}
           </p>
@@ -38,7 +54,7 @@ function IngredientsDrinks() {
             src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
             alt="imagem dos ingredientes"
           />
-        </div>
+        </button>
       ))}
 
       <Footer />
