@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link, useHistory } from 'react-router-dom';
 
 function IngredientsFoods() {
   const [ingredients, setIngredients] = useState([]);
   console.log(ingredients);
+  console.log('xablau');
 
   useEffect(() => {
     async function getIngredients() {
