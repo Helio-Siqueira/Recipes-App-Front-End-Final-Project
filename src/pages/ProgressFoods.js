@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import { setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -40,13 +41,18 @@ function ProgressFoods() {
     detailsFoodsById();
   }, [idFood]);
 
-  function startRecipe() {
-    history.push(`/foods/${idFood}/in-progress`);
-  }
+  // function startRecipe() {
+  //   history.push(`/foods/${idFood}/in-progress`);
+  // }
 
   // function continueRecipe() {
   //   // history.push(`/foods/${idFood}/in-progress`)
   // }
+
+  function finishRecipe() {
+    setDoneRecipe(detailMeals);
+    console.log('finalizar');
+  }
 
   const shareButton = () => {
     setshareMessage(true);
@@ -108,7 +114,7 @@ function ProgressFoods() {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ startRecipe }
+            onClick={ finishRecipe }
             className="datails__start__button"
           >
             Finalizar Receita
