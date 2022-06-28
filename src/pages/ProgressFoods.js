@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
-import { getInProgressRecipes, setRecipesProgress } from '../services/LocalStorage';
+import { getInProgressRecipes,
+  setRecipesProgress, setDoneRecipe } from '../services/LocalStorage';
 // import RecipesContext from '../context/RecipesContext';
-import { setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -60,9 +60,9 @@ function ProgressFoods() {
     }
   }, [idFood]);
 
-  function startRecipe() {
-    history.push(`/foods/${idFood}/in-progress`);
-  }
+  // function startRecipe() {
+  //   history.push(`/foods/${idFood}/in-progress`);
+  // }
 
   // function startRecipe() {
   //   history.push(`/foods/${idFood}/in-progress`);

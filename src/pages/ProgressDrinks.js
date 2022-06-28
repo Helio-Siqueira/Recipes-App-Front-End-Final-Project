@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
-import { getInProgressRecipes, setRecipesProgress } from '../services/LocalStorage';
-import { setDoneRecipe } from '../services/LocalStorage';
-
+import { getInProgressRecipes,
+  setRecipesProgress, setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -51,8 +50,7 @@ function ProgressDrinks() {
   function finishRecipe() {
     setDoneRecipe(detailDrinks);
     console.log('finalizar');
-    history.push(`/drinks/${idDrink}/in-progress`); 
-    
+    history.push(`/drinks/${idDrink}/in-progress`);
   }
 
   const shareButton = () => {
