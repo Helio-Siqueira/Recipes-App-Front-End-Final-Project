@@ -26,6 +26,7 @@ function ProgressFoods() {
   // const [progress, setprogress] = useState(false);
   const [shareMessage, setshareMessage] = useState(false);
   const [isFavorite, setIsfavorite] = useState(false);
+  const [disableFinishBtn, setDisableFinishBtn] = useState(true);
 
   useEffect(() => {
     try {
@@ -74,6 +75,7 @@ function ProgressFoods() {
 
   function finishRecipe() {
     setDoneRecipe(detailMeals);
+    history.push('/done-recipes');
     console.log('finalizar');
   }
 
@@ -94,7 +96,9 @@ function ProgressFoods() {
   };
 
   useEffect(() => {
-    console.log(ingredient);
+    const verifyCheck = ingredient.every((item) => item.feito === true);
+    console.log(verifyCheck);
+    setDisableFinishBtn(!verifyCheck);
   }, [ingredient]);
 
   return (
@@ -162,6 +166,7 @@ function ProgressFoods() {
             data-testid="finish-recipe-btn"
             onClick={ finishRecipe }
             className="datails__start__button"
+            disabled={ disableFinishBtn }
           >
             Finalizar Receita
           </button>
