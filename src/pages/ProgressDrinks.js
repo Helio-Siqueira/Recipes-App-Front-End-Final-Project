@@ -55,11 +55,10 @@ function ProgressDrinks() {
 
   const shareButton = () => {
     setshareMessage(true);
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000/drinks/${idDrink}`);
   };
 
-  const checkIngredients = (indexCheck, target) => {
-    console.log(target);
+  const checkIngredients = (indexCheck) => {
     const newListIng = ingredient.map((item, index) => {
       if (index === indexCheck) {
         return { nome: item.nome, feito: !item.feito };
@@ -120,7 +119,7 @@ function ProgressDrinks() {
             type="checkbox"
             id={ `${index}` }
             // defaultChecked={ Boolean(feito) }
-            // checked={ feito }
+            checked={ feito }
             defaultchecked={ feito }
             onClick={ () => checkIngredients(index) }
           />
