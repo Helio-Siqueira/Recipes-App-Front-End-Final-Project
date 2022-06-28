@@ -33,15 +33,6 @@ export function getCocktailsToken() {
   return localStorage.setItem('cocktailsToken');
 }
 
-export function setDoneRecipes(foodObject) {
-  const PrevState = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (PrevState === null) {
-    return localStorage.setItem('doneRecipes', JSON.stringify(foodObject));
-  }
-  const updatedRecepies = { ...PrevState, foodObject };
-  return localStorage.setItem('doneRecipes', JSON.stringify(updatedRecepies));
-}
-
 // export function getDoneRecipes() {
 //   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
 //   return storage;
@@ -79,19 +70,24 @@ export function getInProgressRecipes() {
 
 function NewEntryCreator(recipe) {
   const { idDrink, idMeal, strArea, strCategory,
-    strAlcoholic, strMeal, strDrink, strImageSource } = recipe;
+    strAlcoholic, strMeal, strDrink, strDrinkThumb, strMealThumb } = recipe;
   let recipeId = '';
   let foodOrDrink = '';
   let foodNationality = '';
   let foodCategory = '';
   let isAlcholic = '';
   let recipeName = '';
+  let img = '';
   if (idDrink !== undefined) {
     recipeId = idDrink;
-    foodOrDrink = 'Drink';
+    recipeName = strDrink;
+    foodOrDrink = 'drink';
+    img = strDrinkThumb;
   } else {
     recipeId = idMeal;
-    foodOrDrink = 'Food';
+    recipeName = strMeal;
+    foodOrDrink = 'food';
+    img = strMealThumb;
   }
   if (strArea !== undefined) {
     foodNationality = strArea;
@@ -105,11 +101,6 @@ function NewEntryCreator(recipe) {
   if (strAlcoholic !== undefined) {
     isAlcholic = strAlcoholic;
   }
-  if (strDrink !== undefined) {
-    recipeName = strDrink;
-  } else {
-    recipeName = strMeal;
-  }
   const newEntry = [{
     id: recipeId,
     type: foodOrDrink,
@@ -117,7 +108,7 @@ function NewEntryCreator(recipe) {
     category: foodCategory,
     alcoholicOrNot: isAlcholic,
     name: recipeName,
-    image: strImageSource,
+    image: img,
   }];
   return newEntry;
 }
@@ -143,5 +134,35 @@ export function removeFavoriteRecipe(id) {
     console.log(update);
     localStorage
       .setItem('favoriteRecipes', JSON.stringify(update));
+  }
+}
+
+export function setDoneRecipe(recipe) {
+  console.log(recipe);
+  const { strTags } = recipe;
+  // codigo abaixo aprendido no https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+  const data = new Date();
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  const dataAtual = `${dia}/${mes}/${ano}`;
+  // fim do cod. aprendido no https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+  const increment = {
+    doneDate: dataAtual,
+    tags: strTags,
+  };
+  console.log(increment);
+  // reaproveito a função já criada para outro requisito
+  const newEntry = NewEntryCreator(recipe);
+  // junto o retorno da função acima com as inforamçoes adicionais para cumprir o requisito (data atual e tags)
+  Object.assign(newEntry[0], increment);
+  console.log(newEntry);
+  const PrevState = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (PrevState === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify(newEntry));
+  } else {
+    const update = [...PrevState, ...newEntry];
+    localStorage
+      .setItem('doneRecipes', JSON.stringify(update));
   }
 }

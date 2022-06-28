@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
 import { getInProgressRecipes, setRecipesProgress } from '../services/LocalStorage';
 // import RecipesContext from '../context/RecipesContext';
+import { setDoneRecipe } from '../services/LocalStorage';
 
 const copy = require('clipboard-copy');
 
@@ -59,31 +60,22 @@ function ProgressFoods() {
     }
   }, [idFood]);
 
-  console.log(ingredient);
-
-  // useEffect(() => {
-  //   try {
-  //     const novafuncao = async () => {
-  //       const listaProgresso = getInProgressRecipes();
-  //       if (listaProgresso === null) {
-  //         const newIngrendientsList = await recipesInProgresProvider(idFood);
-  //         console.log(newIngrendientsList);
-  //         setIngredient(newIngrendientsList);
-  //       }
-  //     };
-  //     novafuncao();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
   function startRecipe() {
     history.push(`/foods/${idFood}/in-progress`);
   }
 
+  // function startRecipe() {
+  //   history.push(`/foods/${idFood}/in-progress`);
+  // }
+
   // function continueRecipe() {
   //   // history.push(`/foods/${idFood}/in-progress`)
   // }
+
+  function finishRecipe() {
+    setDoneRecipe(detailMeals);
+    console.log('finalizar');
+  }
 
   const shareButton = () => {
     setshareMessage(true);
@@ -169,7 +161,7 @@ function ProgressFoods() {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ startRecipe }
+            onClick={ finishRecipe }
             className="datails__start__button"
           >
             Finalizar Receita
