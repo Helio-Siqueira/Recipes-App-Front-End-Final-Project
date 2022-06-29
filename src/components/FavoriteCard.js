@@ -12,13 +12,16 @@ function FavoriteCard(props) {
   const [shareMessage, setshareMessage] = useState(false);
   const [isFavorite, setIsfavorite] = useState(true);
   const [id, setId] = useState('');
+  const [isFood, setIsFood] = useState(false);
   const { recipe, index } = props;
   function shareButton() {
     setshareMessage(true);
     copy(`http://localhost:3000${pathname}`);
   }
   useEffect(() => {
-    const { id: recievedId } = recipe;
+    const { id: recievedId, type } = recipe;
+    const checktype = (type === 'food');
+    setIsFood(checktype);
     setId(recievedId);
   });
 
@@ -41,14 +44,22 @@ function FavoriteCard(props) {
           data-testid={ `${index}-horizontal-image` }
         />
         <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-        <h2 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h2>
+        <h2 data-testid={ `${index}-horizontal-top-text` }>
+          {
+            isFood
+              ? (`${recipe.nationality} - ${recipe.category}`) : (recipe.alcoholicOrNot)
+          }
+        </h2>
         <button
           type="button"
-          data-testid={ `${index}-horizontal-share-btn` }
           onClick={ shareButton }
         >
           {shareMessage ? (<p>Link copied!</p>) : (
-            <img src={ shareIcon } alt="Share" />
+            <img
+              src={ shareIcon }
+              alt="Share"
+              data-testid={ `${index}-horizontal-share-btn` }
+            />
           )}
         </button>
         <button
