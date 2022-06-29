@@ -19,6 +19,24 @@ function RecipesDone() {
     console.log(target.name);
   };
 
+  const exibirTags = (tags, index) => {
+    if (tags === null) {
+      return <p>tags</p>;
+    }
+    if (typeof tags === 'string') {
+      return (
+        <p
+          data-testid={ `${index}-${tags}-horizontal-tag` }
+        >
+          {tags}
+        </p>);
+    }
+    return tags.map((tag) => (
+      <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
+        { tag }
+      </p>));
+  };
+
   return (
     <div>
       <Header />
@@ -67,12 +85,18 @@ function RecipesDone() {
               <img src={ shareIcon } alt="Share" />
             )}
           </button>
-
-          { tags.map((tag) => (
-            <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
-              { tag }
-            </p>
-          ))}
+          {exibirTags(tags, index)}
+          {/* {(typeof tags === 'string') ? (
+            <p
+              data-testid={ `${index}-${tags}-horizontal-tag` }
+            >
+              {tags}
+            </p>)
+            : (tags.map((tag) => (
+              <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
+                { tag }
+              </p>
+            )))} */}
         </div>
       ))}
     </div>
