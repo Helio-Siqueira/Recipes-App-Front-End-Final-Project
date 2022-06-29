@@ -3,16 +3,18 @@ import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import { getDoneRecipes } from '../services/LocalStorage';
 
+const copy = require('clipboard-copy');
+
 function RecipesDone() {
   const [doneRecipes] = useState(getDoneRecipes() || []);
   const [filterRecipes] = useState(doneRecipes);
   const [shareMessage, setshareMessage] = useState(false);
   console.log(doneRecipes);
 
-  const shareButton = () => {
+  const shareButton = (type, id) => {
     setshareMessage(true);
-    // copy(`http://localhost:3000/foods/${idFood}`);
-    console.log('share');
+    copy(`http://localhost:3000/${type}s/${id}`);
+    // console.log('share');
   };
 
   const filterAll = (target) => {
@@ -66,26 +68,37 @@ function RecipesDone() {
           Drinks
         </button>
       </div>
-      {filterRecipes.map(({ image, category, name, doneDate, tags }, index) => (
+      {filterRecipes.map((recipe, index) => (
+        // image, category, name, doneDate, tags, nationality, type, alcoholicOrNot
         <div key={ index }>
           <img
-            src={ image }
+            src={ recipe.image }
             alt="imagem da receita"
             data-testid={ `${index}-horizontal-image` }
           />
-          <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-          <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {
+              (recipe.type === 'food')
+                ? (`${recipe.nationality} - ${recipe.category}`) : (recipe.alcoholicOrNot)
+            }
+          </p>
+          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <button
             type="button"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ shareButton }
+            onClick={ () => shareButton(recipe.type, recipe.id) }
           >
             {shareMessage ? (<p>Link copied!</p>) : (
-              <img src={ shareIcon } alt="Share" />
+              <img
+                src={ shareIcon }
+                alt="Share"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
             )}
           </button>
-          {exibirTags(tags, index)}
+          {exibirTags(recipe.tags, index)}
         </div>
       ))}
     </div>
