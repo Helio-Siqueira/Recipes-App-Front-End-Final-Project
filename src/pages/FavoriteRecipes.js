@@ -11,6 +11,16 @@ function FavoriteRecipes() {
     setDsplay(favorites);
   }, []);
 
+  const showFavorites = () => {
+    if (display === null) {
+      return <p>No favorite recipes</p>;
+    }
+    return display.map((recipe, index) => (<FavoriteCard
+      recipe={ recipe }
+      key={ index }
+      index={ index }
+    />));
+  };
   return (
     <div>
       <Header />
@@ -35,13 +45,7 @@ function FavoriteRecipes() {
         </button>
       </div>
       <div>
-        {(display.length > 0) && display.map((recipe, index) => (
-          <FavoriteCard
-            recipe={ recipe }
-            key={ index }
-            index={ index }
-          />
-        ))}
+        {showFavorites()}
       </div>
     </div>
   );
