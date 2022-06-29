@@ -4,7 +4,7 @@ import './FoodCard.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { setFavoriteRecipes, removeFavoriteRecipe } from '../services/LocalStorage';
+import { removeFavoriteRecipe } from '../services/LocalStorage';
 // teste
 const copy = require('clipboard-copy');
 
@@ -27,13 +27,9 @@ function FavoriteCard(props) {
   });
 
   function favoriteRecipe() {
-    if (isFavorite === true) {
-      removeFavoriteRecipe(id);
-      setIsfavorite(false);
-    } else {
-      setIsfavorite(true);
-      setFavoriteRecipes(recipe);
-    }
+    removeFavoriteRecipe(id);
+    setIsfavorite(false);
+    document.location.reload(true);
   }
 
   return (
