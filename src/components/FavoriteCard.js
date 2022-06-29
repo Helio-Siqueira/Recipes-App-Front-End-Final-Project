@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './FoodCard.css';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { removeFavoriteRecipe } from '../services/LocalStorage';
-// teste
+
 const copy = require('clipboard-copy');
 
 function FavoriteCard(props) {
@@ -35,12 +36,14 @@ function FavoriteCard(props) {
   return (
     <div>
       <div className="card">
-        <img
-          src={ recipe.image }
-          alt={ recipe.name }
-          data-testid={ `${index}-horizontal-image` }
-        />
-        <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+        <Link to={ `/${recipe.type}s/${recipe.id}` }>
+          <img
+            src={ recipe.image }
+            alt={ recipe.name }
+            data-testid={ `${index}-horizontal-image` }
+          />
+          <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+        </Link>
         <h2 data-testid={ `${index}-horizontal-top-text` }>
           {
             isFood
