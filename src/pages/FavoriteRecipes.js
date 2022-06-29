@@ -35,7 +35,7 @@ function FavoriteRecipes() {
         </button>
       </div>
       <div>
-        {display.map((recipe, index) => (
+        {(display.length > 0) && display.map((recipe, index) => (
           <FavoriteCard
             recipe={ recipe }
             key={ index }
