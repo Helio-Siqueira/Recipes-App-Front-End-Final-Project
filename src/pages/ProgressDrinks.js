@@ -127,8 +127,8 @@ function ProgressDrinks() {
             type="checkbox"
             id={ `${index}` }
             // defaultChecked={ Boolean(feito) }
-            checked={ feito }
-            defaultchecked={ feito }
+            // checked={ feito }
+            defaultChecked={ feito }
             onClick={ () => checkIngredients(index) }
           />
         </label>

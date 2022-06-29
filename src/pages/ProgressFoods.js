@@ -145,8 +145,8 @@ function ProgressFoods() {
             type="checkbox"
             id={ `${index}` }
             // defaultChecked={ Boolean(feito) }
-            checked={ feito }
-            defaultchecked={ Boolean(feito) }
+            // checked={ feito }
+            defaultChecked={ Boolean(feito) }
             onClick={ () => checkIngredients(index) }
           />
         </label>
