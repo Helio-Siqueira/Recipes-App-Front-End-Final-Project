@@ -16,7 +16,8 @@ function FavoriteCard(props) {
   const { recipe, index } = props;
   function shareButton() {
     setshareMessage(true);
-    copy(`http://localhost:3000${pathname}`);
+    const { type, id: idFav } = recipe;
+    copy(`http://localhost:3000/${type}s/${idFav}`);
   }
   useEffect(() => {
     const { id: recievedId, type } = recipe;
