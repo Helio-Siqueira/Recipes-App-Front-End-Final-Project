@@ -31,10 +31,10 @@ function RecipesDone() {
           {tags}
         </p>);
     }
-    return tags.map((tag) => (
+    return (tags.map((tag) => (
       <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
         { tag }
-      </p>));
+      </p>)));
   };
 
   return (
@@ -86,17 +86,6 @@ function RecipesDone() {
             )}
           </button>
           {exibirTags(tags, index)}
-          {/* {(typeof tags === 'string') ? (
-            <p
-              data-testid={ `${index}-${tags}-horizontal-tag` }
-            >
-              {tags}
-            </p>)
-            : (tags.map((tag) => (
-              <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
-                { tag }
-              </p>
-            )))} */}
         </div>
       ))}
     </div>
