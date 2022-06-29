@@ -21,25 +21,40 @@ function FavoriteRecipes() {
       index={ index }
     />));
   };
+
+  const handleFilter = (type) => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (type === 'all') {
+      return setDsplay(favorites);
+    }
+    const filtered = favorites.filter((recipe) => recipe.type === type);
+    setDsplay(filtered);
+  };
   return (
     <div>
       <Header />
       <div>
         <button
           type="button"
+          id="all"
           data-testid="filter-by-all-btn"
+          onClick={ () => handleFilter('all') }
         >
           all
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          id="food"
+          onClick={ () => handleFilter('food') }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          id="drink"
+          onClick={ () => handleFilter('drink') }
         >
           Drinks
         </button>
