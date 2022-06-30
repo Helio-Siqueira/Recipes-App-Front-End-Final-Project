@@ -88,6 +88,9 @@ function ProviderRecipes({ children }) {
     case 'Fist-Letter':
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${therm}`;
       break;
+    case 'Nationality':
+      endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${therm}`;
+      break;
     default:
       console.log('erro na passagem do parametro na searchBar de Header');
     }
@@ -104,6 +107,17 @@ function ProviderRecipes({ children }) {
 
   async function searchAPI(category, therm, parameter) {
     const ELEVEN = 11;
+    if (therm === 'All') {
+      const endopint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const response = await fetch(endopint);
+      const { meals: array } = await response.json();
+      let newListFood = array;
+      if (array.length > ELEVEN) {
+        const TWELVE = 12;
+        newListFood = array.slice(0, TWELVE);
+      }
+      return setFoods(newListFood);
+    }
     let isFood = false;
     let endPoint = '';
     if (category === 'Foods') {
@@ -113,6 +127,7 @@ function ProviderRecipes({ children }) {
       endPoint = switchDrink(parameter, endPoint, therm);
     } if (endPoint.length > 1) {
       try {
+        console.log(endPoint);
         const response = await fetch(endPoint);
         if (isFood) {
           const { meals: array } = await response.json();

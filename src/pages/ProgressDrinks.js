@@ -17,6 +17,7 @@ function ProgressDrinks() {
   const [recipeDone] = useState(true);
   const [shareMessage, setshareMessage] = useState(false);
   const [isFavorite, setIsfavorite] = useState(false);
+  const [disableFinishBtn, setDisableFinishBtn] = useState(true);
 
   useEffect(() => {
     try {
@@ -50,16 +51,16 @@ function ProgressDrinks() {
   function finishRecipe() {
     setDoneRecipe(detailDrinks);
     console.log('finalizar');
-    history.push(`/drinks/${idDrink}/in-progress`);
+    // history.push(`/drinks/${idDrink}/in-progress`);
+    history.push('/done-recipes');
   }
 
   const shareButton = () => {
     setshareMessage(true);
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000/drinks/${idDrink}`);
   };
 
-  const checkIngredients = (indexCheck, target) => {
-    console.log(target);
+  const checkIngredients = (indexCheck) => {
     const newListIng = ingredient.map((item, index) => {
       if (index === indexCheck) {
         return { nome: item.nome, feito: !item.feito };
@@ -70,6 +71,12 @@ function ProgressDrinks() {
     // setRecipesProgress('foods', idFood, newListIng);
     setRecipesProgress('drinks', idDrink, newListIng);
   };
+
+  useEffect(() => {
+    const verifyCheck = ingredient.every((item) => item.feito === true);
+    console.log(verifyCheck);
+    setDisableFinishBtn(!verifyCheck);
+  }, [ingredient]);
 
   return (
     <div>
@@ -121,7 +128,7 @@ function ProgressDrinks() {
             id={ `${index}` }
             // defaultChecked={ Boolean(feito) }
             // checked={ feito }
-            defaultchecked={ feito }
+            defaultChecked={ feito }
             onClick={ () => checkIngredients(index) }
           />
         </label>
@@ -141,6 +148,7 @@ function ProgressDrinks() {
             data-testid="finish-recipe-btn"
             onClick={ finishRecipe }
             className="datails__start__button"
+            disabled={ disableFinishBtn }
           >
             Finalizar Receita
           </button>

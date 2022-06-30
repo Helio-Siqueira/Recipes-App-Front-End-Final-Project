@@ -33,10 +33,10 @@ export function getCocktailsToken() {
   return localStorage.setItem('cocktailsToken');
 }
 
-// export function getDoneRecipes() {
-//   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
-//   return storage;
-// }
+export function getDoneRecipes() {
+  const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+  return storage;
+}
 
 export function setRecipesProgress(category, foodID, ingredients) {
   const newEntry = { [foodID]: [...ingredients] };

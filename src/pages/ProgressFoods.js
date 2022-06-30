@@ -26,6 +26,7 @@ function ProgressFoods() {
   // const [progress, setprogress] = useState(false);
   const [shareMessage, setshareMessage] = useState(false);
   const [isFavorite, setIsfavorite] = useState(false);
+  const [disableFinishBtn, setDisableFinishBtn] = useState(true);
 
   useEffect(() => {
     try {
@@ -74,16 +75,16 @@ function ProgressFoods() {
 
   function finishRecipe() {
     setDoneRecipe(detailMeals);
+    history.push('/done-recipes');
     console.log('finalizar');
   }
 
   const shareButton = () => {
     setshareMessage(true);
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000/foods/${idFood}`);
   };
 
-  const checkIngredients = (indexCheck, target) => {
-    console.log(target);
+  const checkIngredients = (indexCheck) => {
     const newListIng = ingredient.map((item, index) => {
       if (index === indexCheck) {
         return { nome: item.nome, feito: !item.feito };
@@ -95,7 +96,9 @@ function ProgressFoods() {
   };
 
   useEffect(() => {
-    console.log(ingredient);
+    const verifyCheck = ingredient.every((item) => item.feito === true);
+    console.log(verifyCheck);
+    setDisableFinishBtn(!verifyCheck);
   }, [ingredient]);
 
   return (
@@ -143,7 +146,7 @@ function ProgressFoods() {
             id={ `${index}` }
             // defaultChecked={ Boolean(feito) }
             // checked={ feito }
-            defaultchecked={ Boolean(feito) }
+            defaultChecked={ Boolean(feito) }
             onClick={ () => checkIngredients(index) }
           />
         </label>
@@ -163,6 +166,7 @@ function ProgressFoods() {
             data-testid="finish-recipe-btn"
             onClick={ finishRecipe }
             className="datails__start__button"
+            disabled={ disableFinishBtn }
           >
             Finalizar Receita
           </button>
