@@ -7,6 +7,7 @@ import RecipesContext from '../context/RecipesContext';
 function Nationalities() {
   const [nationalities, setNationalities] = useState([{ strArea: 'All' }]);
   const { searchAPI, foods } = useContext(RecipesContext);
+  const [valueNatinalitie, setValueNatinalitie] = useState('All');
 
   useEffect(() => {
     const PrevState = nationalities;
@@ -28,6 +29,7 @@ function Nationalities() {
   }, [foods]);
 
   const searchByNationality = (nationality) => {
+    setValueNatinalitie(nationality);
     searchAPI('Foods', nationality, 'Nationality');
   };
 
@@ -37,7 +39,9 @@ function Nationalities() {
       <div>
         <select
           data-testid="explore-by-nationality-dropdown"
+          value={ valueNatinalitie }
           onChange={ ({ target }) => searchByNationality(target.value) }
+
         >
           {
             nationalities.map((nationality, index) => (
