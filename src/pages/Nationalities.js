@@ -26,7 +26,7 @@ function Nationalities() {
       }
     }
     getNationalities();
-  }, [foods]);
+  }, []);
 
   const searchByNationality = (nationality) => {
     setValueNatinalitie(nationality);
