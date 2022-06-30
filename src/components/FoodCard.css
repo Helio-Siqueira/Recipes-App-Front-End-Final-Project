@@ -1,12 +1,9 @@
 .card {
+  background: #fb7968 0% 0% no-repeat padding-box;
+  border: none;
   display: flex;
   justify-content: space-evenly;
   margin: 2vh;
-  width: 150px;
-}
-
-.card img {
-  width: 100%;
 }
 
 .datails__card__recomendation {
@@ -32,5 +29,32 @@
   position: fixed;
   text-align: center;
   width: 360px;
+
+}
+
+.food_card {
+  background: #fb7968 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px #262d2f78;
+  height: 156px;
+  margin-left: 10px;
+  margin-top: 10px;
+  opacity: 1;
+  width: 166px;
+}
+
+.card img {
+  border-radius: 6px;
+  height: 115px;
+  opacity: 1;
+  width: 140px;
+}
+
+.card h3 {
+  color: whitesmoke;
+  letter-spacing: 1.08px;
+  opacity: 1;
+  padding-top: 5px;
+  text-align: center;
 
 }

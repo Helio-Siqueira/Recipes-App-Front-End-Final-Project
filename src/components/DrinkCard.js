@@ -7,7 +7,7 @@ function DrinkCard(props) {
   const { drink, idTest } = props;
 
   return (
-    <div>
+    <div className="food_card">
       <Link to={ `/drinks/${drink.idDrink}` }>
         <div className="card" data-testid={ `${idTest}-recipe-card` }>
           <img

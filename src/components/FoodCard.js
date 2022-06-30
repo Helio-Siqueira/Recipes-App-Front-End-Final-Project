@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function FoodCard(props) {
   const { food, idTest } = props;
   return (
-    <div>
+    <div className="food_card">
       <Link to={ `/foods/${food.idMeal}` }>
         <div className="card" data-testid={ `${idTest}-recipe-card` }>
           <img
