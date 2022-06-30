@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import '../style/login.css';
 import { setEmailStorage,
   setSenhaStorage,
   setMealsTokenStorage,
@@ -45,12 +46,11 @@ function Login() {
     <div className="login_container">
       <form className="login_form">
         <label htmlFor="login_email" className="login_label">
-          Email
           <input
             type="email"
             className="login_email"
             nome="login_email"
-            placeholder="adicione seu email aqui"
+            placeholder="Email"
             id="login_email"
             value={ email }
             data-testid="email-input"
@@ -59,12 +59,12 @@ function Login() {
         </label>
 
         <label htmlFor="login_senha" className="login_label">
-          Senha
+
           <input
             className="login_senha"
             type="password"
             nome="login_senha"
-            placeholder="adicione sua senha aqui"
+            placeholder="Senha"
             id="login_senha"
             data-testid="password-input"
             value={ senha }
