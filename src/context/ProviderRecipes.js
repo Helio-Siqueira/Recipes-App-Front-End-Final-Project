@@ -41,8 +41,8 @@ function ProviderRecipes({ children }) {
 
     async function getFoods() {
       try {
-        const endopint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-        const response = await fetch(endopint);
+        const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+        const response = await fetch(endpoint);
         const { meals: array } = await response.json();
         let newListFood = array;
         const ELEVEN = 11;
