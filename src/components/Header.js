@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import imgProfile from '../images/profileIcon.svg';
 import imgSearch from '../images/searchIcon.svg';
 import RecipesContext from '../context/RecipesContext';
+import '../style/header.css';
 
 function Header() {
   const history = useHistory();
@@ -55,37 +56,51 @@ function Header() {
   }
 
   return (
-    <header className="header">
-      <Link to="/profile">
-        <img
-          src={ imgProfile }
-          className="header__button"
-          type="button"
-          data-testid="profile-top-btn"
-          alt="profile"
-        />
-      </Link>
+    <div>
+      <header className="header">
+        <Link to="/profile">
+          <img
+            src={ imgProfile }
+            className="header_profile_button"
+            type="button"
+            data-testid="profile-top-btn"
+            alt="profile"
+          />
+        </Link>
 
-      <h1 data-testid="page-title">{ titleState }</h1>
-      {showSearchBtn
+        <h1 data-testid="page-title">{ titleState }</h1>
+        {showSearchBtn
       && (
-        <button type="button" onClick={ () => setShowSearchImp(!showSearchImp) }>
+        <button
+          className="header_search_button"
+          type="button"
+          onClick={ () => setShowSearchImp(!showSearchImp) }
+        >
           <img
             type="button"
             data-testid="search-top-btn"
-            className="header__button"
             src={ imgSearch }
             alt="Search"
           />
         </button>)}
+      </header>
       {showSearchImp
       && (
-        <div>
+        <div className="search">
+          <input
+            type="text"
+            data-testid="search_input"
+            className="search_input"
+            name={ inputedSearchText }
+            // value={ inputedSearchText }
+            onChange={ handlerSearchChange }
+          />
           <label htmlFor="Ingredients">
             Ingredients
             <input
               id="Ingredient"
               type="radio"
+              className="search_radio"
               data-testid="ingredient-search-radio"
               checked={ selectedSearchCategory === 'Ingredient' }
               onClick={ handlerSearchChange }
@@ -96,6 +111,7 @@ function Header() {
             <input
               id="Name"
               type="radio"
+              className="search_radio"
               data-testid="name-search-radio"
               checked={ selectedSearchCategory === 'Name' }
               onClick={ handlerSearchChange }
@@ -106,18 +122,12 @@ function Header() {
             <input
               id="Fist-Letter"
               type="radio"
+              className="search_radio"
               data-testid="first-letter-search-radio"
               checked={ selectedSearchCategory === 'Fist-Letter' }
               onClick={ handlerSearchChange }
             />
           </label>
-          <input
-            type="text"
-            data-testid="search-input"
-            name={ inputedSearchText }
-            // value={ inputedSearchText }
-            onChange={ handlerSearchChange }
-          />
           <button
             data-testid="exec-search-btn"
             type="button"
@@ -128,8 +138,7 @@ function Header() {
           </button>
         </div>
       )}
-
-    </header>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
-// teste
+import '../style/favoriteRecipes.css';
 
 function FavoriteRecipes() {
   const [display, setDsplay] = useState([]);
@@ -33,9 +33,10 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header />
-      <div>
+      <div className="favorites">
         <button
           type="button"
+          className="favorite_button"
           id="all"
           data-testid="filter-by-all-btn"
           onClick={ () => handleFilter('all') }
@@ -44,6 +45,7 @@ function FavoriteRecipes() {
         </button>
         <button
           type="button"
+          className="favorite_button"
           data-testid="filter-by-food-btn"
           id="food"
           onClick={ () => handleFilter('food') }
@@ -52,6 +54,7 @@ function FavoriteRecipes() {
         </button>
         <button
           type="button"
+          className="favorite_button"
           data-testid="filter-by-drink-btn"
           id="drink"
           onClick={ () => handleFilter('drink') }
