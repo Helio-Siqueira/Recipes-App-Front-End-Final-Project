@@ -25,7 +25,7 @@ function Nationalities() {
       }
     }
     getNationalities();
-  }, [foods]);
+  }, []);
 
   const searchByNationality = (nationality) => {
     searchAPI('Foods', nationality, 'Nationality');
