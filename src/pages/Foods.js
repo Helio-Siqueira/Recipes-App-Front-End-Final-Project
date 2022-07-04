@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
 import RecipesContext from '../context/RecipesContext';
+import '../style/foods.css';
 
 // página principal de receitas
 
@@ -71,15 +72,15 @@ function Foods() {
   };
 
   return (
-    <div>
+    <div className="foods_container">
       <Header />
-      <p>Foods</p>
-      <section>
+      <section className="foods_buttons">
         <button
           type="button"
           data-testid="All-category-filter"
           name="All"
           onClick={ filterAll }
+          className="foods_btn_all button_foods"
         >
           All
         </button>
@@ -90,29 +91,30 @@ function Foods() {
             key={ index }
             name={ category.strCategory }
             onClick={ filterByCategory }
+            className="button_foods"
           >
             { category.strCategory }
 
           </button>
         )).slice(0, Number(magigNumber)) }
       </section>
-
-      {filterFoods.length > 0 ? filterFoods.map((item, index) => (
-        <FoodCard
-          key={ item.idMeal }
-          food={ item }
-          idTest={ index }
-        />
-      )) : (
-        foods.map((item, index2) => (
+      <div className="foodcard_container">
+        {filterFoods.length > 0 ? filterFoods.map((item, index) => (
           <FoodCard
             key={ item.idMeal }
             food={ item }
-            idTest={ index2 }
+            idTest={ index }
           />
-        ))
-      )}
-
+        )) : (
+          foods.map((item, index2) => (
+            <FoodCard
+              key={ item.idMeal }
+              food={ item }
+              idTest={ index2 }
+            />
+          ))
+        )}
+      </div>
       <Footer />
     </div>
   );
