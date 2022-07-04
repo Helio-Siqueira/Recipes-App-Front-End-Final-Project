@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DrinkCard from '../components/DrinkCard';
 import RecipesContext from '../context/RecipesContext';
+import '../style/foods.css';
 
 function Drinks() {
   const history = useHistory();
@@ -71,12 +72,13 @@ function Drinks() {
     <div>
       <Header />
       <div>Drinks</div>
-      <section>
+      <section className="foods_buttons">
         <button
           type="button"
           data-testid="All-category-filter"
           name="All"
           onClick={ filterAll }
+          className="foods_btn_all button_foods"
         >
           All
         </button>
@@ -87,20 +89,22 @@ function Drinks() {
             key={ index }
             name={ category.strCategory }
             onClick={ filterByCategory }
+            className="button_foods"
           >
             { category.strCategory }
 
           </button>
         )).slice(0, Number(magigNumber)) }
       </section>
-
-      {filterDrinks.length > 0 ? filterDrinks.map((item, index) => (
-        <DrinkCard key={ item.idDrink } drink={ item } idTest={ index } />
-      )) : (
-        drinks.map((item, index2) => (
-          <DrinkCard key={ item.idDrink } drink={ item } idTest={ index2 } />
-        ))
-      )}
+      <div className="foodcard_container">
+        {filterDrinks.length > 0 ? filterDrinks.map((item, index) => (
+          <DrinkCard key={ item.idDrink } drink={ item } idTest={ index } />
+        )) : (
+          drinks.map((item, index2) => (
+            <DrinkCard key={ item.idDrink } drink={ item } idTest={ index2 } />
+          ))
+        )}
+      </div>
       <Footer />
     </div>
   );

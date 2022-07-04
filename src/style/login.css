@@ -1,58 +1,50 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
 }
+
 body {
-    line-height: 1;
+  line-height: 1;
 }
+
 ol, ul {
-    list-style: none;
+  list-style: none;
 }
+
 blockquote, q {
-    quotes: none;
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
 }
+
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
- 
+
 .login_container {
-  height: 640px;
-  width: 360px;
-  background-color: #EE4028;
+  background-color: #ee4028;
   display: flex;
   flex-direction: column;
+  height: 640px;
+  width: 360px;
 }
 
 .logo__animation {
@@ -97,19 +89,18 @@ table {
   
 
 .login_email {
-margin-top: 100px;
-display: flex;
-align-items: center;
-margin-left: 52px;
-width: 257px;
-height: 54px;
-border-radius: 4px;
-border: none;
-font-family: 'Quicksand', sans-serif;
-font-size: 23px;
-padding:10px 8px;
-background-color: #E9E5E4;
-box-shadow: 0px 3px 6px #00000052;
+  background-color: #e9e5e4;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px #00000052;
+  font-family: 'Quicksand' , sans-serif;
+  font-size: 30px;
+  height: 54px;
+  letter-spacing: 1.2px;
+  margin-left: 52px;
+  margin-top: 379px;
+  padding: 10px 8px;
+  width: 257px;
 }
 
 .login_email::placeholder {
@@ -161,3 +152,21 @@ opacity: 1;
     flex-direction: column;
     margin-top: 40px;
 }
+
+.login_button {
+  background-color: #262d2f;
+  border-radius: 7px;
+  box-shadow: 0 5px 10px #00000063;
+  color: #f5f5f5;
+  font: normal normal medium 33px/41px Quicksand;
+  font-family: 'Quicksand' , sans-serif;
+  height: 57px;
+  letter-spacing: 1.98px;
+  margin-left: 52px;
+  margin-top: 20px;
+  opacity: 1;
+  opacity: 1;
+  text-align: left;
+  width: 257px;
+}
+
