@@ -8,7 +8,7 @@ function FoodCard(props) {
   return (
     <div className="food_card">
       <Link to={ `/foods/${food.idMeal}` }>
-        <div className="card" data-testid={ `${idTest}-recipe-card` }>
+        <div className="card_principal" data-testid={ `${idTest}-recipe-card` }>
           <img
             src={ food.strMealThumb }
             alt={ food.strMeal }
