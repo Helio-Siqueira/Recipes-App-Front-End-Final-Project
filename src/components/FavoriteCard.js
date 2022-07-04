@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { removeFavoriteRecipe } from '../services/LocalStorage';
+import '../style/favoriteCard.css';
 
 const copy = require('clipboard-copy');
 
@@ -39,12 +40,22 @@ function FavoriteCard(props) {
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <img
             src={ recipe.image }
+            height="170px"
+            width="170px"
             alt={ recipe.name }
             data-testid={ `${index}-horizontal-image` }
           />
-          <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+          <h3
+            className="name"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { recipe.name }
+          </h3>
         </Link>
-        <h2 data-testid={ `${index}-horizontal-top-text` }>
+        <h2
+          className="category"
+          data-testid={ `${index}-horizontal-top-text` }
+        >
           {
             isFood
               ? (`${recipe.nationality} - ${recipe.category}`) : (recipe.alcoholicOrNot)
@@ -52,11 +63,13 @@ function FavoriteCard(props) {
         </h2>
         <button
           type="button"
+          className="share_button"
           onClick={ shareButton }
         >
           {shareMessage ? (<p>Link copied!</p>) : (
             <img
               src={ shareIcon }
+              // className="share_button"
               alt="Share"
               data-testid={ `${index}-horizontal-share-btn` }
             />
@@ -64,9 +77,12 @@ function FavoriteCard(props) {
         </button>
         <button
           type="button"
+          className="share_favorite"
           onClick={ favoriteRecipe }
         >
           <img
+            width="36px"
+            height="36px"
             src={ isFavorite ? (blackHeartIcon) : (whiteHeartIcon) }
             data-testid={ `${index}-horizontal-favorite-btn` }
             alt="favorite"

@@ -1,0 +1,189 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between;
+    align-items: center; */
+    position:sticky;
+    margin: 10px;
+    width: 100%;
+    height: 170px;
+    background: #FB7968 0% 0% no-repeat padding-box;
+    border-radius: 7px;
+    opacity: 1;
+}
+
+ 
+.name{
+    margin-top: 15px;
+    margin-left: 20px;
+    width: 30%;
+    height: 20%;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) 22px/28px var(--unnamed-font-family-quicksand);
+    color: var(--unnamed-color-f5f5f5);
+    text-align: left;
+    font: normal normal medium 22px/28px Quicksand;
+    letter-spacing: 1.32px;
+    font-family: 'Quicksand', sans-serif;
+    color: #F5F5F5;
+    opacity: 1;
+
+}
+
+.category{
+    margin-top: 15px;
+    margin-left: 20px;
+    width: 90px;
+    height: 28px;
+    text-align: left;
+    font: normal normal medium 22px/28px Quicksand;
+    letter-spacing: 1.32px;
+    font-family: 'Quicksand', sans-serif;
+    color: #F5F5F5;
+    opacity: 1;
+
+}
+
+.favorite_button{
+    margin-top: 25px;
+    margin-right: 20px;
+    margin: 0%;
+    border-width: 0px;
+    width: 36px;
+    height: 36px;
+    background: #FB7968 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.share_button{
+    margin-top: 25px;
+    margin-right: 20px;
+    margin: 0%;
+    border-width: 0px;
+    width: 36px;
+    height: 36px;
+    background: #FB7968 28 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.search{
+    line-height: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position:sticky;
+    float: inline-start;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin: 0%;
+    /* padding-top: 3%; */
+    padding-left: 10;
+    border-width: 0px;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.search_input{
+    margin-top: 5px;
+    margin-left: 10px;
+    border-width: 1px solid #D1D4DE;
+    border-radius: 4px;
+    width: 460px;
+    height: 34px;
+    background: #E9E5E4 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+label{
+    padding: 5px;
+    margin-left: 25px;
+    /* border-width: 1px solid #D1D4DE;
+    border-radius: 4px;
+    width: 360px;
+    height: 34px;
+    background: #E9E5E4 0% 0% no-repeat padding-box;
+    opacity: 1; */
+}
+
+.search_radio{
+    margin-right: 20px;
+    padding: 5px;
+    background: #EE4028 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.search_button{
+    /* margin-top: 20px; */
+    margin-left: 15px;
+    width: 157px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    background-color: #EE4028;
+    box-shadow: 0px 5px 10px #00000063;
+    border-radius: 7px;
+    opacity: 1;
+    font-family: 'Quicksand', sans-serif;
+    text-align: left;
+    font: normal normal medium 33px/41px Quicksand;
+    letter-spacing: 1.98px;
+    color: #F5F5F5;
+    opacity: 1;
+    }
