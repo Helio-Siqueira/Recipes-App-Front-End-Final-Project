@@ -1,10 +1,13 @@
-.card {
+.card_principal {
   background: #fb7968 0% 0% no-repeat padding-box;
   border: none;
   display: flex;
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   margin: 2vh;
 }
+
 
 .datails__card__recomendation {
   background-color: red;
@@ -43,14 +46,14 @@
   width: 166px;
 }
 
-.card img {
+.card_principal img {
   border-radius: 6px;
   height: 115px;
   opacity: 1;
   width: 140px;
 }
 
-.card h3 {
+.card_principal h3 {
   color: whitesmoke;
   letter-spacing: 1.08px;
   opacity: 1;
