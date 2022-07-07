@@ -58,7 +58,7 @@ function ExploreFoods() {
         <button
           name={ btnClick }
           type="button"
-          className="surpise-me-btn"
+          className="surprise-me-btn"
           data-testid="explore-surprise"
           onClick={ surpriseMeBtn }
         >
