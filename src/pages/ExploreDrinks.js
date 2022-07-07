@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../style/exploreDrinks.css';
 
 function ExploreDrinks() {
   const [btnClick, setBtnClick] = useState();
@@ -30,9 +31,12 @@ function ExploreDrinks() {
   return (
     <div>
       <Header />
-      <div>
+      <main
+        className="exploreDrinks-main "
+      >
         <Link to="/explore/drinks/ingredients">
           <button
+            className="explore-by-ingredient-btn"
             data-testid="explore-by-ingredient"
             type="button"
           >
@@ -43,12 +47,13 @@ function ExploreDrinks() {
         <button
           name={ btnClick }
           type="button"
+          className="surpise-me-btn"
           data-testid="explore-surprise"
           onClick={ surpriseMeBtn }
         >
           Surprise me!
         </button>
-      </div>
+      </main>
       <Footer />
     </div>
   );
