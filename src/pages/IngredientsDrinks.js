@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
+import '../style/exploreByIngredients.css';
 
 function IngredientsDrinks() {
   const [ingredients, setIngredients] = useState([]);
@@ -38,24 +39,33 @@ function IngredientsDrinks() {
   return (
     <div>
       <Header />
+      <main
+        className="exploreByIngredients-main"
+      >
 
-      {ingredients.map((item, index) => (
-        <button
-          key={ index }
-          data-testid={ `${index}-ingredient-card` }
-          type="button"
-          onClick={ () => searchByIngredient(item.strIngredient1) }
-        >
-          <p data-testid={ `${index}-card-name` }>
-            {`${item.strIngredient1}`}
-          </p>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
-            alt="imagem dos ingredientes"
-          />
-        </button>
-      ))}
+        {ingredients.map((item, index) => (
+          <button
+            className="ingredient-card"
+            key={ index }
+            data-testid={ `${index}-ingredient-card` }
+            type="button"
+            onClick={ () => searchByIngredient(item.strIngredient1) }
+          >
+            <img
+              className="card-img"
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
+              alt="imagem dos ingredientes"
+            />
+            <p
+              className="card-name"
+              data-testid={ `${index}-card-name` }
+            >
+              {`${item.strIngredient1}`}
+            </p>
+          </button>
+        ))}
+      </main>
 
       <Footer />
     </div>

@@ -7,12 +7,15 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer data-testid="footer">
+    <footer
+      className="footer"
+      data-testid="footer"
+    >
 
       <Link to="/drinks">
         <img
           src={ imgDrink }
-          className="footer-btn"
+          className="footer-btn-1"
           type="button"
           data-testid="drinks-bottom-btn"
           alt="link to drinks"
@@ -22,7 +25,7 @@ function Footer() {
       <Link to="/explore">
         <img
           src={ imgExplore }
-          className="footer-btn"
+          className="footer-btn-2"
           type="button"
           data-testid="explore-bottom-btn"
           alt="link to explore"
@@ -32,7 +35,7 @@ function Footer() {
       <Link to="/foods">
         <img
           src={ imgMeal }
-          className="footer-btn"
+          className="footer-btn-3"
           type="button"
           data-testid="food-bottom-btn"
           alt="link to meals"
