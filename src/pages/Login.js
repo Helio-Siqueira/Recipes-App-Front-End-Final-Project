@@ -26,7 +26,7 @@ function Login() {
   const [logoMarca, setLogoMarca] = useState(true);
 
   useEffect(() => {
-    const seg = 2000;
+    const seg = 900;
     setTimeout(() => setLogoMarca(false), seg);
   }, []);
 
@@ -62,6 +62,7 @@ function Login() {
                 className="login__image"
               />
               <form className="login_form">
+                <h1 className="login__Login">Login</h1>
                 <label htmlFor="login_email" className="login_label">
                   <input
                     type="email"

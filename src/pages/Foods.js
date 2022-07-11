@@ -101,6 +101,7 @@ function Foods() {
       <div className="foodcard_container">
         {filterFoods.length > 0 ? filterFoods.map((item, index) => (
           <FoodCard
+            className="food__card"
             key={ item.idMeal }
             food={ item }
             idTest={ index }
@@ -108,6 +109,7 @@ function Foods() {
         )) : (
           foods.map((item, index2) => (
             <FoodCard
+              className="food__card"
               key={ item.idMeal }
               food={ item }
               idTest={ index2 }
