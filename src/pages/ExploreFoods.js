@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../style/exploreFoods.css';
 
 function ExploreFoods() {
   const [btnClick, setBtnClick] = useState();
@@ -31,9 +32,12 @@ function ExploreFoods() {
   return (
     <div>
       <Header title="Explore Foods" />
-      <div>
+      <main
+        className="exploreFoods-main"
+      >
         <Link to="/explore/foods/ingredients">
           <button
+            className="explore-by-ingredient-btn"
             type="button"
             data-testid="explore-by-ingredient"
           >
@@ -43,6 +47,7 @@ function ExploreFoods() {
 
         <Link to="/explore/foods/nationalities">
           <button
+            className="explore-by-nationalities-btn"
             type="button"
             data-testid="explore-by-nationality"
           >
@@ -53,12 +58,13 @@ function ExploreFoods() {
         <button
           name={ btnClick }
           type="button"
+          className="surprise-me-btn"
           data-testid="explore-surprise"
           onClick={ surpriseMeBtn }
         >
           Surprise me!
         </button>
-      </div>
+      </main>
       <Footer />
     </div>
   );
