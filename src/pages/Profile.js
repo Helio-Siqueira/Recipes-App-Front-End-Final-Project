@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getEmail } from '../services/LocalStorage';
+import '../style/profile.css';
 
 function Profile() {
   const [btnClick, setBtnClick] = useState();
@@ -30,37 +31,41 @@ function Profile() {
 
   console.log(email);
   return (
-    <div className="profile__container">
+    <div>
       <Header />
       <h3 data-testid="profile-email">{ email?.email }</h3>
+      <div className="profile__container">
+        <button
+          data-testid="profile-done-btn"
+          className="profile_page_button"
+          type="button"
+          onClick={ handleButtonDone }
+          name={ btnClickDone }
+        >
+          Done Recipes
+        </button>
 
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ handleButtonDone }
-        name={ btnClickDone }
-      >
-        Done Recipes
-      </button>
+        <button
+          type="button"
+          name={ btnClick }
+          data-testid="profile-favorite-btn"
+          className="profile_page_button"
+          onClick={ handleButton }
+        >
+          Favorite Recipes
+        </button>
 
-      <button
-        type="button"
-        name={ btnClick }
-        data-testid="profile-favorite-btn"
-        onClick={ handleButton }
-      >
-        Favorite Recipes
-      </button>
+        <button
+          type="button"
+          name={ btnClickLogout }
+          data-testid="profile-logout-btn"
+          className="profile_page_button"
+          onClick={ handleButtonLogout }
 
-      <button
-        type="button"
-        name={ btnClickLogout }
-        data-testid="profile-logout-btn"
-        onClick={ handleButtonLogout }
-
-      >
-        Logout
-      </button>
+        >
+          Logout
+        </button>
+      </div>
       <Footer />
     </div>
   );
