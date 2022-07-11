@@ -36,7 +36,7 @@ function FavoriteCard(props) {
 
   return (
     <div>
-      <div className="card">
+      <div className="acard">
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <img
             src={ recipe.image }
@@ -45,49 +45,54 @@ function FavoriteCard(props) {
             alt={ recipe.name }
             data-testid={ `${index}-horizontal-image` }
           />
-          <h3
-            className="name"
-            data-testid={ `${index}-horizontal-name` }
-          >
-            { recipe.name }
-          </h3>
         </Link>
-        <h2
-          className="category"
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          {
-            isFood
-              ? (`${recipe.nationality} - ${recipe.category}`) : (recipe.alcoholicOrNot)
-          }
-        </h2>
-        <button
-          type="button"
-          className="share_button"
-          onClick={ shareButton }
-        >
-          {shareMessage ? (<p>Link copied!</p>) : (
+        <div className="subcard">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <h2
+              className="fname"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { recipe.name }
+            </h2>
+          </Link>
+          <h2
+            className="category"
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {
+              isFood
+                ? (`${recipe.nationality} - ${recipe.category}`) : (recipe.alcoholicOrNot)
+            }
+          </h2>
+          <button
+            type="button"
+            className="fshare_button"
+            onClick={ shareButton }
+          >
+            {shareMessage ? (<p>Link copied!</p>) : (
+              <img
+                src={ shareIcon }
+                // className="share_button"
+                alt="Share"
+                height="38px"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            )}
+          </button>
+          <button
+            type="button"
+            className="ffavorite_button"
+            onClick={ favoriteRecipe }
+          >
             <img
-              src={ shareIcon }
-              // className="share_button"
-              alt="Share"
-              data-testid={ `${index}-horizontal-share-btn` }
+              width="36px"
+              height="36px"
+              src={ isFavorite ? (whiteHeartIcon) : (blackHeartIcon) }
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              alt="favorite"
             />
-          )}
-        </button>
-        <button
-          type="button"
-          className="share_favorite"
-          onClick={ favoriteRecipe }
-        >
-          <img
-            width="36px"
-            height="36px"
-            src={ isFavorite ? (blackHeartIcon) : (whiteHeartIcon) }
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            alt="favorite"
-          />
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   );
