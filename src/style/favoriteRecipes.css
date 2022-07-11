@@ -71,7 +71,7 @@ table {
     opacity: 1;
 }
 
-.header_search_button{
+/*.header_search_button{
     margin-top: 25px;
     margin-right: 20px;
     margin: 0%;
@@ -81,7 +81,7 @@ table {
     background: #EE4028 0% 0% no-repeat padding-box;
     opacity: 1;
 }
-
+*/
 .favorites{
     line-height: 0%;
     display: flex;

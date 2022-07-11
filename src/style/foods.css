@@ -37,19 +37,15 @@
   width: 350px;
 }
 
-.food__card {
-  font-family: 'Quicksand', sans-serif;
-}
-
 .foodcard_container {
   display: flex;
   margin-top: 25px;
-  margin-left: -2.6px;
+  margin-left: -1.5px;
   flex-wrap: wrap;
   height: 340px;
   opacity: 1;
   overflow-y: scroll;
-  width: 365px;
+  width: 358px;
   overflow-y: scroll;
 }
 
