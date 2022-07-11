@@ -169,13 +169,13 @@ padding-left: 10px;
   background: #262D2F 0% 0% no-repeat padding-box;
   box-shadow: 0px 5px 10px #00000063;
   border-radius: 7px;
-  opacity: 1;
+  opacity:1;
 
-font-family:'Quicksand', sans-serif;
-font-size: 30px;
-text-align: left;
-padding-left: 84px;
-letter-spacing: 1.98px;
+  font-family:'Quicksand', sans-serif;
+  font-size: 30px;
+  text-align: left;
+  padding-left: 84px;
+  letter-spacing: 1.98px;
 }
 
 .login__image {
@@ -202,4 +202,3 @@ letter-spacing: 1.98px;
   text-align: left;
   width: 257px;
 }
-

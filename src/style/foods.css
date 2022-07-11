@@ -5,6 +5,7 @@
   height: 650px;
   opacity: 1;
   width: 360px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .button_foods {
@@ -26,7 +27,7 @@
   /* background-color: aqua; */
   display: flex;
   flex-wrap: wrap;
-  height: 73px;
+  height: 85px;
   justify-content: space-evenly;
   margin-left: 5px;
   margin-top: 30px;
@@ -42,7 +43,7 @@
 
 .foodcard_container {
   display: flex;
-  margin-top: 30px;
+  margin-top: 25px;
   margin-left: -2.6px;
   flex-wrap: wrap;
   height: 340px;
@@ -50,4 +51,8 @@
   overflow-y: scroll;
   width: 365px;
   overflow-y: scroll;
+}
+
+.food__footer{
+  margin-top: 50px;
 }

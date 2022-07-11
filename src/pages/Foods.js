@@ -73,7 +73,7 @@ function Foods() {
 
   return (
     <div className="foods_container">
-      <Header />
+      <Header className="food__header" />
       <section className="foods_buttons">
         <button
           type="button"
@@ -117,7 +117,9 @@ function Foods() {
           ))
         )}
       </div>
-      <Footer />
+      <section className="food__footer">
+        <Footer />
+      </section>
     </div>
   );
 }
