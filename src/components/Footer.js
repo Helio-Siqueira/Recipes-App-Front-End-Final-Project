@@ -12,10 +12,10 @@ function Footer() {
       data-testid="footer"
     >
 
-      <Link to="/drinks">
+      <Link to="/drinks" className="footer_link_drinks">
         <img
           src={ imgDrink }
-          className="footer-btn-1"
+          className="footer_button_drink"
           type="button"
           data-testid="drinks-bottom-btn"
           alt="link to drinks"
@@ -25,7 +25,7 @@ function Footer() {
       <Link to="/explore">
         <img
           src={ imgExplore }
-          className="footer-btn-2"
+          className="footer_button_explore"
           type="button"
           data-testid="explore-bottom-btn"
           alt="link to explore"

@@ -3,21 +3,22 @@
   /* UI Properties */
   background: whitesmoke 0% 0% no-repeat padding-box;
   height: 650px;
-  left: -2px;
   opacity: 1;
-  top: -10px;
-  width: 362px;
+  width: 360px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .button_foods {
   background: #ee4028 0% 0% no-repeat padding-box;
   border: none;
-  border-radius: 2px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  border-radius: 4px;
   box-shadow: 1px 2px 6px #262d2f69;
   color: white;
+  width: 100px;
   height: 28px;
   opacity: 1;
-  width: 100px;
 }
 
 
@@ -26,21 +27,32 @@
   /* background-color: aqua; */
   display: flex;
   flex-wrap: wrap;
-  height: 73px;
+  height: 85px;
   justify-content: space-evenly;
-  margin-left: 10px;
-  margin-top: 20px;
+  margin-left: 5px;
+  margin-top: 30px;
 
   /* UI Properties */
-  opacity: 1;
-  width: 341px;
+  opacity: 01;
+  width: 350px;
+}
+
+.food__card {
+  font-family: 'Quicksand', sans-serif;
 }
 
 .foodcard_container {
   display: flex;
+  margin-top: 25px;
+  margin-left: -2.6px;
   flex-wrap: wrap;
   height: 340px;
   opacity: 1;
   overflow-y: scroll;
   width: 365px;
+  overflow-y: scroll;
+}
+
+.food__footer{
+  margin-top: 50px;
 }

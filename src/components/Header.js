@@ -57,7 +57,7 @@ function Header() {
 
   return (
     <div>
-      <header className="header">
+      <header className="header__container">
         <Link to="/profile">
           <img
             src={ imgProfile }
