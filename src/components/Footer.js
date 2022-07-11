@@ -35,7 +35,7 @@ function Footer() {
       <Link to="/foods">
         <img
           src={ imgMeal }
-          className="footer-btn-3"
+          className="footer_button_food"
           type="button"
           data-testid="food-bottom-btn"
           alt="link to meals"

@@ -58,7 +58,7 @@ function Header() {
   return (
     <div>
       <header className="header__container">
-        <Link to="/profile">
+        <Link to="/profile" className="header__profile">
           <img
             src={ imgProfile }
             className="header_profile_button"
@@ -68,7 +68,7 @@ function Header() {
           />
         </Link>
 
-        <h1 data-testid="page-title">{ titleState }</h1>
+        <h1 className="header_titulo" data-testid="page-title">{ titleState }</h1>
         {showSearchBtn
       && (
         <button
@@ -86,7 +86,7 @@ function Header() {
       </header>
       {showSearchImp
       && (
-        <div className="search">
+        <div className="header__container">
           <input
             type="text"
             data-testid="search_input"
