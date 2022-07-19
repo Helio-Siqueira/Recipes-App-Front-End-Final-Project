@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
-import './Details.css';
+import '../style/detailsFoods.css';
 
 const copy = require('clipboard-copy');
 
@@ -27,6 +27,8 @@ function DetailsFoods() {
   const [shareMessage, setshareMessage] = useState(false);
   const [isFavorite, setIsfavorite] = useState(false);
   const [showBtn, setShowBtn] = useState(true);
+  const [video, setVideo] = useState('');
+  // const video = detailMeals?.strYoutube.replace('watch?v=', 'embed/');
 
   useEffect(() => {
     async function detailsFoodsById() {
@@ -34,6 +36,7 @@ function DetailsFoods() {
       const response = await fetch(endopint);
       const { meals } = await response.json();
       setDetailMeals(meals[0]);
+      setVideo(meals[0].strYoutube.replace('watch?v=', 'embed/'));
       console.log(meals[0]);
       const ingredientsList = Object.entries(meals[0])
         .filter((info) => (info[0].includes('strIngredient') && info[1]))
@@ -96,10 +99,11 @@ function DetailsFoods() {
         src={ detailMeals.strMealThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
-        className="details__img"
+        className="detailsFoods__img"
       />
       <p
         data-testid="recipe-title"
+        className="detailsFoods__title"
       >
         {detailMeals.strMeal}
       </p>
@@ -140,7 +144,7 @@ function DetailsFoods() {
         height="315"
         data-testid="video"
         // src={ `https://www.youtube.com/embed/${video}` }
-        src={ detailMeals.strYoutube }
+        src={ video }
       />
       {/* <p
         data-testid="${index}-recomendation-card"

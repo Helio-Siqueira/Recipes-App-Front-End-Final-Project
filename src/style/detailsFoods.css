@@ -1,0 +1,42 @@
+button {
+  margin: 0;
+}
+
+.detailsFoods__img {
+  height: 197px;
+  width: 360px;
+}
+
+.detailsFoods__title {
+
+  /* color: #262d2f; */
+  color: green;
+  font: normal normal medium 30px/38px;
+  font-family: 'Quicksand' , sans-serif;
+  height: 38px;
+  letter-spacing: 1.8px;
+  opacity: 1;
+  text-align: left;
+  width: 75%;
+}
+
+.details__share__button {
+  height: 36px;
+  opacity: 1;
+  width: 36px;
+}
+
+.details__name__buttons {
+  display: flex;
+  width: 360px;
+}
+
+.details__category {
+  color: #c5c6cb;
+
+  /* font: normal normal medium 19px/24px; */
+  font-family: 'Quicksand' , sans-serif;
+  font-size: normal normal medium 19px/24px;
+  margin-top: -20px;
+
+}

@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
-import './Details.css';
 
 const copy = require('clipboard-copy');
 
