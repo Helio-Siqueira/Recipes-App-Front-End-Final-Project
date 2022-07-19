@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import { getDoneRecipes } from '../services/LocalStorage';
-import './Details.css';
 
 const copy = require('clipboard-copy');
 
