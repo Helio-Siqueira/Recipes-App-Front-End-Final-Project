@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { setRecipesProgress } from '../services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import '../style/detailsDrinks.css';
 
 const copy = require('clipboard-copy');
 
@@ -89,54 +90,70 @@ function DetailsDrinks() {
 
   return (
     <div>
-      <div>DetailsDrinks</div>
       <img
         src={ detailDrinks?.strDrinkThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
-        className="details__img"
+        className="detailsDrinks__img"
       />
-      <p
-        data-testid="recipe-title"
-      >
-        {detailDrinks?.strDrink}
-      </p>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ shareButton }
-      >
-        {shareMessage ? (<p>Link copied!</p>) : (
-          <img src={ shareIcon } alt="Share" />
-        )}
-      </button>
-      <FavoriteButton
-        isFavorite={ isFavorite }
-        setIsfavorite={ setIsfavorite }
-        recipe={ detailDrinks }
-      />
+      <section className="detailsDrinks__title__buttons ">
+        <p
+          data-testid="recipe-title"
+          className="detailsDrinks__title"
+        >
+          {detailDrinks?.strDrink}
+        </p>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ shareButton }
+          className="detailsDrinks__share__button"
+        >
+          {shareMessage ? (<p>Link copied!</p>) : (
+            <img src={ shareIcon } alt="Share" />
+          )}
+        </button>
+        <FavoriteButton
+          isFavorite={ isFavorite }
+          setIsfavorite={ setIsfavorite }
+          recipe={ detailDrinks }
+          classe="detailsDrinks__favorite__button"
+        />
+      </section>
       <p
         data-testid="alcoholic"
+        className="detailsDrinks__category"
       >
         {detailDrinks?.strAlcoholic}
       </p>
       <p
         data-testid="recipe-category"
+        className="detailsDrinks__category"
       >
         {detailDrinks?.strAlcoholic}
       </p>
-      <h1>Ingredientes</h1>
-      {ingredient.map((item, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-          {`- ${item} - ${measure[index]}`}
+      <h1 className="detailsDrinks__title">Ingredientes</h1>
+      <div className="detailsDrinks__container">
+        {ingredient.map((item, index) => (
+          <p
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
+            className="detailsDrinks__name__ingredientes"
+          >
+            {`- ${item} - ${measure[index]}`}
+          </p>
+        ))}
+      </div>
+      <h1 className="detailsDrinks__title">Instruções</h1>
+      <div className="detailsDrinks__container">
+        <p
+          data-testid="instructions"
+        >
+          {detailDrinks?.strInstructions}
         </p>
-      ))}
-      <p
-        data-testid="instructions"
-      >
-        {detailDrinks?.strInstructions}
-      </p>
-      <div className="datails__card__recomendation">
+      </div>
+      <h1 className="detailsDrinks__title">Recomendações</h1>
+      <div className="detailsDrinks__card__recomendation">
         { foodsRecomendation.map((food, index) => (
 
           <Link
@@ -144,7 +161,7 @@ function DetailsDrinks() {
             key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
-            <div className="card" data-testid={ `${index}-recipe-card` }>
+            <div className="detailsDrinks__card" data-testid={ `${index}-recipe-card` }>
               <img
                 src={ food.strMealThumb }
                 alt={ food.strMeal }
@@ -159,12 +176,12 @@ function DetailsDrinks() {
       {/* {isdone? 'mostra' : ''} */}
       {(inProgress === true && recipeUnDone === true && showBtn === true)
         && (
-          <div className="details__start">
+          <div className="detailsDrinks__start">
             <button
               type="button"
               data-testid="start-recipe-btn"
               onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-              className="datails__start__button"
+              className="detailsDrinks__start__button"
             >
               Continue Recipe
             </button>
@@ -172,12 +189,12 @@ function DetailsDrinks() {
 
       {(inProgress === false && recipeUnDone === true && showBtn === true)
       && (
-        <div className="details__start">
+        <div className="detailsDrinks__start">
           <button
             type="button"
             data-testid="start-recipe-btn"
             onClick={ startRecipe }
-            className="datails__start__button"
+            className="detailsDrinks__start__button"
           >
             Start Recipe
           </button>
