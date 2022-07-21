@@ -2,12 +2,15 @@ button {
   margin: 0;
 }
 
-.detailsFoods__img {
-  height: 197px;
+.detailsDrinks__img {
   width: 360px;
 }
 
-.detailsFoods__title {
+.detailsDrinks__title__buttons {
+  display: flex;
+}
+
+.detailsDrinks__title {
   align-items: center;
 
   /* color: #262d2f; */
@@ -21,7 +24,7 @@ button {
   opacity: 1;
   text-align: left;
   text-decoration: underline;
-  text-decoration-color: #ee4028 ;
+  text-decoration-color: #ee4028;
   width: 75%;
 }
 
@@ -46,19 +49,19 @@ button {
 
 }
 
-.detailsFoods__title__buttons {
+.detailsDrinks__title__buttons {
   display: flex;
 }
 
-.detailsFoods__share__button {
+.detailsDrinks__share__button {
   width: 36px;
 }
 
-.detailsFoods__favorite__button {
+.detailsDrinks__favorite__button {
   width: 36px;
 }
 
-.detailsFoods__category {
+.detailsDrinks__category {
   color: #c5c6cb;
   font: normal normal medium 19px/24px Quicksand;
   letter-spacing: 1.14px;
@@ -67,7 +70,7 @@ button {
   text-align: left;
 }
 
-/* .detailsFoods__ingredientes {
+/* .detailsDrinks__ingredientes {
   color: #262d2f;
   font: normal normal 400 30px/38px Quicksand;
   font-size: 30px;
@@ -80,7 +83,7 @@ button {
   text-decoration-color: #ee4028;
 } */
 
-.detailsFoods__container {
+.detailsDrinks__container {
   background: #ded7d7 0% 0% no-repeat padding-box;
   border-radius: 5px;
   margin: 10px;
@@ -88,18 +91,18 @@ button {
   padding: 5px;
 }
 
-.detailsFoods__name__ingredientes {
+.detailsDrinks__name__ingredientes {
   margin-left: 10px;
 }
 
-.detailsFoods__card__recomendation {
+.detailsDrinks__card__recomendation {
   display: flex;
   flex-wrap: nowrap;
   margin-top: 10px;
   overflow-x: scroll;
 }
 
-.detailsFoods__card {
+.detailsDrinks__card {
 
   /* UI Properties */
   background: #fb7968 0% 0% no-repeat padding-box;
@@ -118,7 +121,7 @@ button {
   width: 166px;
 }
 
-.detailsFoods__card img {
+.detailsDrinks__card img {
   border-radius: 6px;
 
   /* UI Properties */
@@ -128,7 +131,7 @@ button {
   width: 158px;
 }
 
-.detailsFoods__card h3 {
+.detailsDrinks__card h3 {
   color: whitesmoke;
   letter-spacing: 1.08px;
   opacity: 1;
@@ -137,13 +140,13 @@ button {
 
 }
 
-.detailsFoods__start {
+.detailsDrinks__start {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
-.detailsFoods__start__button {
+.detailsDrinks__start__button {
   background: #ee4028 0% 0% no-repeat padding-box;
   border-radius: 7px;
   box-shadow: 0 5px 10px #0000005e;

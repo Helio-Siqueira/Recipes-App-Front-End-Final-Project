@@ -101,57 +101,74 @@ function DetailsFoods() {
         data-testid="recipe-photo"
         className="detailsFoods__img"
       />
-      <p
-        data-testid="recipe-title"
-        className="detailsFoods__title"
-      >
-        {detailMeals.strMeal}
-      </p>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ shareButton }
-      >
-        {shareMessage ? (<p>Link copied!</p>) : (
-          <img src={ shareIcon } alt="Share" />
-        )}
-      </button>
-      <FavoriteButton
-        isFavorite={ isFavorite }
-        setIsfavorite={ setIsfavorite }
-        recipe={ detailMeals }
-      />
+      <section className="detailsFoods__title__buttons">
+        <p
+          data-testid="recipe-title"
+          className="detailsFoods__title"
+        >
+          {detailMeals.strMeal}
+        </p>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ shareButton }
+          className="detailsFoods__share__button"
+        >
+          {shareMessage ? (<p>Link copied!</p>) : (
+            <img src={ shareIcon } alt="Share" />
+          )}
+        </button>
+        <FavoriteButton
+          isFavorite={ isFavorite }
+          setIsfavorite={ setIsfavorite }
+          recipe={ detailMeals }
+          classe="detailsFoods__favorite__button"
+        />
+      </section>
       <p
         data-testid="recipe-category"
+        className="detailsFoods__category"
       >
         {detailMeals.strCategory}
       </p>
-      <h1>Ingredientes</h1>
-      {ingredient.map(({ nome }, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-          {`- ${nome} - ${measure[index]}`}
-        </p>
-      ))}
-      <p
-        data-testid="instructions"
-      >
-        {detailMeals.strInstructions}
-      </p>
+      <h1 className="detailsFoods__title">Ingredientes</h1>
+      <div className="detailsFoods__container">
+        {ingredient.map(({ nome }, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            className="detailsFoods__name__ingredientes"
+          >
+            {`- ${nome} - ${measure[index]}`}
+          </p>
 
-      <iframe
-        title="RecipeTutorial"
-        width="100%"
-        height="315"
-        data-testid="video"
-        // src={ `https://www.youtube.com/embed/${video}` }
-        src={ video }
-      />
+        ))}
+      </div>
+      <h1 className="detailsFoods__title">Instruções</h1>
+      <div className="detailsFoods__container">
+        <p
+          data-testid="instructions"
+        >
+          {detailMeals.strInstructions}
+        </p>
+      </div>
+      <div className="detailsFoods__container">
+        <iframe
+          title="RecipeTutorial"
+          width="100%"
+          height="315"
+          data-testid="video"
+          // src={ `https://www.youtube.com/embed/${video}` }
+          src={ video }
+        />
+      </div>
       {/* <p
         data-testid="${index}-recomendation-card"
       >
         {detailMeals.strInstructions}
       </p> */}
-      <div className="datails__card__recomendation">
+      <h1 className="detailsFoods__title">Recomendações</h1>
+      <div className="detailsFoods__card__recomendation">
         {drinkRecomendation.map((drink, index) => (
 
           <Link
@@ -159,7 +176,7 @@ function DetailsFoods() {
             key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
-            <div className="card" data-testid={ `${index}-recipe-card` }>
+            <div className="detailsFoods__card" data-testid={ `${index}-recipe-card` }>
               <img
                 src={ drink.strDrinkThumb }
                 alt={ drink.strDrink }
@@ -174,12 +191,12 @@ function DetailsFoods() {
       {/* {isdone? 'mostra' : ''} */}
       {(inProgress === true && recipeUnDone === true && showBtn === true)
         && (
-          <div className="details__start">
+          <div className="detailsFoods__start">
             <button
               type="button"
               data-testid="start-recipe-btn"
               onClick={ () => history.push(`/foods/${idFood}/in-progress`) }
-              className="datails__start__button"
+              className="detailsFoods__start__button"
             >
               Continue Recipe
             </button>
@@ -187,12 +204,12 @@ function DetailsFoods() {
 
       {(inProgress === false && recipeUnDone === true && showBtn === true)
       && (
-        <div className="details__start">
+        <div className="detailsFoods__start">
           <button
             type="button"
             data-testid="start-recipe-btn"
             onClick={ startRecipe }
-            className="datails__start__button"
+            className="detailsFoods__start__button"
           >
             Start Recipe
           </button>

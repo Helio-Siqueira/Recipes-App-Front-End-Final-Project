@@ -5,7 +5,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { setFavoriteRecipes, removeFavoriteRecipe } from '../services/LocalStorage';
 
 function FavoriteButton(props) {
-  const { isFavorite, setIsfavorite, recipe } = props;
+  const { isFavorite, setIsfavorite, recipe, classe } = props;
   const [id, setId] = useState('');
   const { idDrink, idMeal } = recipe;
   const checkFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -44,6 +44,7 @@ function FavoriteButton(props) {
     <button
       type="button"
       onClick={ favoriteRecipe }
+      className={ classe }
     >
       <img
         src={ isFavorite ? (blackHeartIcon) : (whiteHeartIcon) }
@@ -60,4 +61,5 @@ FavoriteButton.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   setIsfavorite: PropTypes.func.isRequired,
   recipe: PropTypes.shape.isRequired,
+  classe: PropTypes.string.isRequired,
 };
